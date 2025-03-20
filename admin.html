@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sportsplanner Admin View</title>
+</head>
+<body>
+
+  <header>
+    <h1>Sportsplanner Admin View</h1>
+    <nav>
+      <!-- Navigation section -->
+      <ul>
+        <li><a href="#add-category">Add Category</a></li>
+        <li><a href="#add-exercise">Add Exercise</a></li>
+        <li><a href="#all-exercises">View Exercises</a></li>
+        <li><a href="#all-categories">View Categories</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- SECTION: Add New Category -->
+    <section id="add-category">
+      <h2>Add New Category</h2>
+      <p>Create or describe a new exercise category, such as “Legs,” “Cardio,” or “Core.”</p>
+      <form>
+        <div>
+          <label for="category-name">Category Name:</label>
+          <input type="text" id="category-name" name="category-name" placeholder="e.g. Legs, Cardio" required>
+        </div>
+        <div>
+          <label for="category-description">Description:</label>
+          <textarea id="category-description" name="category-description" rows="3" placeholder="Short description..."></textarea>
+        </div>
+        <!-- Optional: Associate existing exercises with this category (if desired) -->
+        <div>
+          <label for="category-exercises">Associate Existing Exercises:</label>
+          <select id="category-exercises" name="category-exercises" multiple>
+            <option>Push-Ups</option>
+            <option>Squats</option>
+            <option>Bench Press</option>
+            <!-- In a real app, these would be dynamically populated -->
+          </select>
+        </div>
+        <button type="button">Create Category</button>
+      </form>
+    </section>
+
+    <!-- SECTION: Add New Exercise -->
+    <section id="add-exercise">
+      <h2>Add New Exercise</h2>
+      <p>Define a new exercise with its basic details.</p>
+      <form>
+        <div>
+          <label for="exercise-name">Exercise Name:</label>
+          <input type="text" id="exercise-name" name="exercise-name" required placeholder="e.g. Push-Ups">
+        </div>
+        <div>
+          <label for="exercise-description">Description:</label>
+          <textarea id="exercise-description" name="exercise-description" rows="3" placeholder="Tips, form cues, etc."></textarea>
+        </div>
+        <div>
+          <label for="exercise-image">Image URL:</label>
+          <input type="url" id="exercise-image" name="exercise-image" placeholder="http://example.com/image.jpg">
+        </div>
+        <div>
+          <label for="exercise-categories">Select Categories:</label>
+          <select id="exercise-categories" name="exercise-categories" multiple>
+            <option>Legs</option>
+            <option>Arms</option>
+            <option>Cardio</option>
+            <!-- In a real app, these would also be dynamically populated -->
+          </select>
+        </div>
+        <button type="button">Create Exercise</button>
+      </form>
+    </section>
+
+    <!-- SECTION: All Exercises -->
+    <section id="all-exercises">
+      <h2>All Exercises</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Categories</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Example row (static placeholder) -->
+          <tr>
+            <td>Squats</td>
+            <td>Keep your back straight.</td>
+            <td>
+              <img src="http://example.com/squats.jpg" alt="Image" width="60" height="40">
+            </td>
+            <td>Legs, Chest</td>
+            <td>
+              <a href="#">Edit</a> |
+              <a href="#">Delete</a>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Deadlifts</td>
+            <td>Keep your back straight, hinge at the hips.</td>
+            <td>
+              <img src="http://example.com/deadlifts.jpg" alt="Image" width="60" height="40">
+            </td>
+            <td>Legs</td>
+            <td>
+              <a href="#">Edit</a> |
+              <a href="#">Delete</a>
+            </td>
+          </tr>
+
+          <!-- More exercises would appear here -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SECTION: All Categories -->
+    <section id="all-categories">
+      <h2>All Categories</h2>
+
+      <!-- Example category as an article -->
+      <article>
+        <h3>Legs</h3>
+        <p>Description: Strength training for your lower body.</p>
+        <p>Exercises: Squats, Lunges, Deadlifts</p>
+        <p>
+          <a href="#">Edit</a> |
+          <a href="#">Delete</a>
+        </p>
+      </article>
+
+      <article>
+        <h3>Cardio</h3>
+        <p>Description: Exercise to improve endurance and stamina.</p>
+        <p>Exercises: Running, Cycling, Jumping Jacks</p>
+        <p>
+          <a href="#">Edit</a> |
+          <a href="#">Delete</a>
+        </p>
+      </article>
+      <!-- More categories as needed -->
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sportsplanner Admin Panel</p>
+  </footer>
+
+</body>
+</html>

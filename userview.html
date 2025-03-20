@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sportsplanner User View</title>
+</head>
+<body>
+
+  <header>
+    <h1>Sportsplanner User View</h1>
+    <nav>
+      <ul>
+        <li><a href="#login">Login</a></li>
+        <li><a href="#my-sportplans">My Sportplans</a></li>
+        <li><a href="#create-sportplan">Create New Sportplan</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- SECTION: Login -->
+    <section id="login">
+      <h2>Login</h2>
+      <form>
+        <div>
+          <label for="username">Name:</label>
+          <input type="text" id="username" name="username" placeholder="Enter your name" required>
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <button type="button">Login</button>
+        <button type="button">Register</button>
+      </form>
+    </section>
+
+    <!-- SECTION: My Sportplans -->
+    <section id="my-sportplans">
+      <h2>My Sportplans</h2>
+      <p>(This section would be greyed out if you are not logged in.)</p>
+      <!-- Each sportplan is a collapsible details element -->
+      <details>
+        <summary>Leg Day Blast</summary>
+        <table>
+          <thead>
+            <tr>
+              <th>Exercise</th>
+              <th>Reps</th>
+              <th>Sets</th>
+              <th>Weight</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Squats</td>
+              <td>10</td>
+              <td>3</td>
+              <td>–</td>
+              <td>30 sec</td>
+            </tr>
+            <tr>
+              <td>Lunges</td>
+              <td>12</td>
+              <td>3</td>
+              <td>–</td>
+              <td>30 sec</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><a href="sportplan-leg-day-blast.html">View full Sportplan</a></p>
+      </details>
+      
+      <details>
+        <summary>Cardio Burner</summary>
+        <table>
+          <thead>
+            <tr>
+              <th>Exercise</th>
+              <th>Reps</th>
+              <th>Sets</th>
+              <th>Weight</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jumping Jacks</td>
+              <td>30</td>
+              <td>3</td>
+              <td>–</td>
+              <td>60 sec</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><a href="sportplan-cardio-burner.html">View full Sportplan</a></p>
+      </details>
+    </section>
+
+    <!-- SECTION: Create New Sportplan -->
+    <section id="create-sportplan">
+      <h2>Create New Sportplan</h2>
+      <form>
+        <div>
+          <label for="sportplan-name">Sportplan Name:</label>
+          <input type="text" id="sportplan-name" name="sportplan-name" placeholder="Name your plan" required>
+        </div>
+        <div>
+          <label for="exercise-search">Search Exercises:</label>
+          <input type="search" id="exercise-search" name="exercise-search" placeholder="Type to search...">
+        </div>
+        <div>
+          <label for="filter-category">Filter by Category:</label>
+          <select id="filter-category" name="filter-category">
+            <option value="">All Categories</option>
+            <option>Legs</option>
+            <option>Arms</option>
+            <option>Cardio</option>
+            <!-- Additional options as needed -->
+          </select>
+        </div>
+        <!-- Listview of available exercises as an editable table -->
+        <fieldset>
+          <legend>Available Exercises</legend>
+          <table>
+            <thead>
+              <tr>
+                <th>Exercise</th>
+                <th>Reps</th>
+                <th>Sets</th>
+                <th>Weight</th>
+                <th>Duration</th>
+                <th>Add</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example row: Squats -->
+              <tr>
+                <td>Squats</td>
+                <td><input type="number" name="squats-reps" placeholder="e.g. 10"></td>
+                <td><input type="number" name="squats-sets" placeholder="e.g. 3"></td>
+                <td><input type="number" name="squats-weight" placeholder="e.g. 50"></td>
+                <td><input type="text" name="squats-duration" placeholder="e.g. 30 sec"></td>
+                <td><button type="button">Add</button></td>
+              </tr>
+              <!-- Example row: Deadlifts -->
+              <tr>
+                <td>Deadlifts</td>
+                <td><input type="number" name="deadlifts-reps" placeholder="e.g. 8"></td>
+                <td><input type="number" name="deadlifts-sets" placeholder="e.g. 3"></td>
+                <td><input type="number" name="deadlifts-weight" placeholder="e.g. 50"></td>
+                <td><input type="text" name="deadlifts-duration" placeholder="e.g. -"></td>
+                <td><button type="button">Add</button></td>
+              </tr>
+              <!-- Example row: Push-Ups -->
+              <tr>
+                <td>Push-Ups</td>
+                <td><input type="number" name="pushups-reps" placeholder="e.g. 12"></td>
+                <td><input type="number" name="pushups-sets" placeholder="e.g. 3"></td>
+                <td><input type="number" name="pushups-weight" placeholder="Bodyweight"></td>
+                <td><input type="text" name="pushups-duration" placeholder="e.g. -"></td>
+                <td><button type="button">Add</button></td>
+              </tr>
+              <!-- More rows as needed -->
+            </tbody>
+          </table>
+        </fieldset>
+        <button type="button">Create Sportplan</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Sportsplanner User View</p>
+  </footer>
+
+</body>
+</html>

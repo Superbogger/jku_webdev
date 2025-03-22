@@ -1,0 +1,226 @@
+/* Base Dark Theme Styles for Sportsplanner */
+
+:root {
+    --bg-main: #1f2a38;
+    --bg-section: #27323f;
+    --text-main: #dce3ec;
+    --text-muted: #9baec8;
+    --accent: #4ea8de;
+    --accent-hover: #68b3e6;
+    --border: #3a4757;
+    --input-bg: #1c2430;
+    --input-border: #4ea8de66;
+    --font-main: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+  
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+  
+  header, footer {
+    background-color: var(--bg-section);
+    padding: 1rem 2rem;
+    text-align: center;
+  }
+  
+  header h1, footer p {
+    margin: 0;
+    color: var(--accent);
+  }
+  
+  .nav-list {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+  }
+  
+  .nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .nav-link:hover {
+    color: var(--accent);
+  }
+  
+  main {
+    padding: 2rem;
+  }
+  
+  .section {
+    background-color: var(--bg-section);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  h2, h3 {
+    color: var(--accent);
+    margin-top: 0;
+  }
+  
+  label {
+    display: block;
+    margin: 0.5rem 0 0.2rem;
+    font-weight: 500;
+  }
+  
+  input, textarea, select {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--text-main);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+  }
+  
+  textarea {
+    resize: none;
+  }
+  
+  button {
+    background-color: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: var(--accent-hover);
+  }
+  
+  .exercise-table, .sportplan-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  
+  .exercise-table th, .exercise-table td,
+  .sportplan-table th, .sportplan-table td {
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  .exercise-table th, .sportplan-table th {
+    background-color: #2e3a4a;
+    color: var(--text-main);
+  }
+  
+  details {
+    background-color: var(--bg-section);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  details[open] > summary {
+    border-bottom: 1px solid var(--border);
+  }
+  
+  summary {
+    list-style: none;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: var(--bg-section);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  
+  summary::-webkit-details-marker,
+  summary::marker {
+    display: none;
+  }
+  
+  summary h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--accent);
+  }
+  
+  .category-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--bg-section);
+  }
+  
+  a {
+    color: var(--accent);
+  }
+  
+  a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+  }
+  
+  form > div {
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Selected Exercises Tile View */
+  .exercise-tile-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .exercise-tile {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    min-width: 120px;
+    text-align: center;
+    position: relative;
+    cursor: grab;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s ease;
+  }
+  
+  .exercise-tile:active {
+    cursor: grabbing;
+    transform: scale(0.98);
+  }
+  
+  .exercise-tile .remove-btn {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: none;
+    color: var(--accent);
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+  
+  .exercise-tile .remove-btn:hover {
+    color: var(--accent-hover);
+  }
+  

@@ -1,7 +1,9 @@
 /* Base Dark Theme Styles for Sportsplanner */
 
 :root {
-    --bg-main: #1f2a38;
+  /* define variables used throughout the document  */
+  /* a variable definition is made via --somename: values; */
+    --bg-main: #1f2a38;  
     --bg-section: #27323f;
     --text-main: #dce3ec;
     --text-muted: #9baec8;
@@ -28,6 +30,7 @@
     text-align: center;
   }
   
+  /* descendant selector ( select h1 any depth nested ) */
   header h1, footer p {
     margin: 0;
     color: var(--accent);
@@ -48,6 +51,10 @@
     font-weight: 500;
   }
   
+  /* 
+  .nav-link → selects any element with the class nav-link
+ :hover → activates when the mouse is over that element */
+ /* :something is a PSEUDO-CLASS */
   .nav-link:hover {
     color: var(--accent);
   }
@@ -64,7 +71,14 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
   
-  h2, h3 {
+  section h2{
+    color: var(--accent);
+    margin-top: 0;
+    text-align: center;
+  }
+
+
+  h3 {
     color: var(--accent);
     margin-top: 0;
   }
@@ -138,6 +152,7 @@
   }
   
   summary {
+    justify-content: center;
     list-style: none;
     padding: 1.2rem 1.5rem;
     display: flex;
@@ -148,6 +163,14 @@
     font-weight: 600;
   }
   
+/* 
+  :pseudo-class → element state or interaction (e.g. :hover, :focus)
+  ::pseudo-element → subpart of element (e.g. ::before, ::marker)
+*/
+/*  https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes
+    https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements */
+
+  /* hide details triangle */
   summary::-webkit-details-marker,
   summary::marker {
     display: none;
@@ -223,4 +246,43 @@
   .exercise-tile .remove-btn:hover {
     color: var(--accent-hover);
   }
+
+  #hamburger-icon {
+    display: none;
+  }
   
+
+
+  /* Responsive Navigation for small screens */
+  @media (max-width: 640px) {
+    #hamburger-icon {
+      display: block;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--accent);
+      cursor: pointer;
+      margin: 0.5rem auto;
+      text-align: center;
+    }
+
+    .nav-list {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      background-color: var(--bg-section);
+      padding: 1rem 0;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    .nav-list.active {
+      display: flex;
+    }
+  }

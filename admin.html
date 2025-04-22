@@ -6,130 +6,235 @@
   <title>Sportsplanner Admin View</title>
   <link rel="stylesheet" href="css/styles.css">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.5.1/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
 </head>
 <body>
 
-  <header class="header">
-    <h1>Sportsplanner Admin View</h1>
-    <nav class="nav">
-      <button id="hamburger-icon">☰</button>
-      <ul class="nav-list">
-        <li><a href="#add-category" class="nav-link">Add Category</a></li>
-        <li><a href="#add-exercise" class="nav-link">Add Exercise</a></li>
-        <li><a href="#all-exercises" class="nav-link">View Exercises</a></li>
-        <li><a href="#all-categories" class="nav-link">View Categories</a></li>
-      </ul>
-    </nav>
-  </header>
+  <div id="app">
+    <!-- {{message}} -->
+    <!-- <button @click="makeMessageLonger()">click me</button> -->
+    <!--OR v-on:click -->
+    {{ JSON.stringify(categories)}}
 
-  <main class="main">
 
-    <section id="add-category" class="section section-add-category">
-      <h2>Add New Category</h2>
-      <p>Create or describe a new exercise category, such as “Legs,” “Cardio,” or “Core.”</p>
-      <form class="form-add-category">
-        <div>
-          <label for="category-name">Category Name:</label>
-          <input type="text" id="category-name" name="category-name" placeholder="e.g. Legs, Cardio" required>
-        </div>
-        <div>
-          <label for="category-description">Description:</label>
-          <textarea id="category-description" name="category-description" rows="3" placeholder="Short description..."></textarea>
-        </div>
-        <div>
-          <label for="category-exercises">Associate Existing Exercises:</label>
-          <select id="category-exercises" name="category-exercises" multiple>
-            <option>Push-Ups</option>
-            <option>Squats</option>
-            <option>Bench Press</option>
-          </select>
-        </div>
-        <button type="button" class="btn-create-category">Create Category</button>
-      </form>
-    </section>
 
-    <section id="add-exercise" class="section section-add-exercise">
-      <h2>Add New Exercise</h2>
-      <p>Define a new exercise with its basic details.</p>
-      <form class="form-add-exercise">
-        <div>
-          <label for="exercise-name">Exercise Name:</label>
-          <input type="text" id="exercise-name" name="exercise-name" required placeholder="e.g. Push-Ups">
-        </div>
-        <div>
-          <label for="exercise-description">Description:</label>
-          <textarea id="exercise-description" name="exercise-description" rows="3" placeholder="Tips, form cues, etc."></textarea>
-        </div>
-        <div>
-          <label for="exercise-image">Image URL:</label>
-          <input type="url" id="exercise-image" name="exercise-image" placeholder="http://example.com/image.jpg">
-        </div>
-        <div>
-          <label for="exercise-categories">Select Categories:</label>
-          <select id="exercise-categories" name="exercise-categories" multiple>
-            <option>Legs</option>
-            <option>Arms</option>
-            <option>Cardio</option>
-          </select>
-        </div>
-        <button type="button" class="btn-create-exercise">Create Exercise</button>
-      </form>
-    </section>
+    <header class="header">
+      <h1>Sportsplanner Admin View</h1>
+      <nav class="nav">
+        <button id="hamburger-icon">☰</button>
+        <ul class="nav-list">
+          <li><a href="#add-category" class="nav-link">Add Category</a></li>
+          <li><a href="#add-exercise" class="nav-link">Add Exercise</a></li>
+          <li><a href="#all-exercises" class="nav-link">View Exercises</a></li>
+          <li><a href="#all-categories" class="nav-link">View Categories</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+      <section id="add-category" class="section section-add-category">
+        <h2>Add New Category</h2>
+        <p>Create or describe a new exercise category, such as “Legs,” “Cardio,” or “Core.”</p>
+        <form class="form-add-category">
+          <div>
+            <label for="category-name">Category Name:</label>
+            <input type="text" id="category-name" name="category-name" placeholder="e.g. Legs, Cardio" required>
+          </div>
+          <div>
+            <label for="category-description">Description:</label>
+            <textarea id="category-description" name="category-description" rows="3" placeholder="Short description..."></textarea>
+          </div>
+          <div>
+            <label for="category-exercises">Associate Existing Exercises:</label>
+            <select id="category-exercises" name="category-exercises" multiple>
+              <option>Push-Ups</option>
+              <option>Squats</option>
+              <option>Bench Press</option>
+            </select>
+          </div>
+          <button type="button" class="btn-create-category">Create Category</button>
+        </form>
+      </section>
+      <section id="add-exercise" class="section section-add-exercise">
+        <h2>Add New Exercise</h2>
+        <p>Define a new exercise with its basic details.</p>
+        <form class="form-add-exercise">
+          <div>
+            <label for="exercise-name">Exercise Name:</label>
+            <input type="text" id="exercise-name" name="exercise-name" required placeholder="e.g. Push-Ups">
+          </div>
+          <div>
+            <label for="exercise-description">Description:</label>
+            <textarea id="exercise-description" name="exercise-description" rows="3" placeholder="Tips, form cues, etc."></textarea>
+          </div>
+          <div>
+            <label for="exercise-image">Image URL:</label>
+            <input type="url" id="exercise-image" name="exercise-image" placeholder="http://example.com/image.jpg">
+          </div>
+          <div>
+            <label for="exercise-categories">Select Categories:</label>
+            <select id="exercise-categories" name="exercise-categories" multiple>
+              <option>Legs</option>
+              <option>Arms</option>
+              <option>Cardio</option>
+            </select>
+          </div>
+          <button type="button" class="btn-create-exercise">Create Exercise</button>
+        </form>
+      </section>
+      <section id="all-exercises" class="section section-all-exercises">
+        <h2>All Exercises</h2>
+        <table class="exercise-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Image</th>
+              <th>Categories</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="exercise in exercises">
+              <td>{{exercise.name}}</td>
+              <td>{{exercise.description}}</td>
+              <td><img src="http://example.com/squats.jpg" alt="Image" width="60" height="40"></td>
+              <td>{{getCategoryNamesFor(exercise)}}</td>
+              <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+            </tr>
+            <tr>
+              <td>Deadlifts</td>
+              <td>Keep your back straight, hinge at the hips.</td>
+              <td><img src="http://example.com/deadlifts.jpg" alt="Image" width="60" height="40"></td>
+              <td>Legs</td>
+              <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section id="all-categories" class="section section-all-categories">
+        <h2>All Categories</h2>
+        <article class="category-card">
+          <h3>Legs</h3>
+          <p>Description: Strength training for your lower body.</p>
+          <p>Exercises: Squats, Lunges, Deadlifts</p>
+          <p><a href="#">Edit</a> | <a href="#">Delete</a></p>
+        </article>
+        <article class="category-card">
+          <h3>Cardio</h3>
+          <p>Description: Exercise to improve endurance and stamina.</p>
+          <p>Exercises: Running, Cycling, Jumping Jacks</p>
+          <p><a href="#">Edit</a> | <a href="#">Delete</a></p>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">
+      <p>&copy; 2025 Sportsplanner Admin Panel</p>
+    </footer>
+  </div>
 
-    <section id="all-exercises" class="section section-all-exercises">
-      <h2>All Exercises</h2>
-      <table class="exercise-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Categories</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Squats</td>
-            <td>Keep your back straight.</td>
-            <td><img src="http://example.com/squats.jpg" alt="Image" width="60" height="40"></td>
-            <td>Legs, Chest</td>
-            <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
-          </tr>
-          <tr>
-            <td>Deadlifts</td>
-            <td>Keep your back straight, hinge at the hips.</td>
-            <td><img src="http://example.com/deadlifts.jpg" alt="Image" width="60" height="40"></td>
-            <td>Legs</td>
-            <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
 
-    <section id="all-categories" class="section section-all-categories">
-      <h2>All Categories</h2>
+  <script>
+    const { createApp } = Vue
+  
+    createApp({
+      data() {
+        return {
+          nextCategoryId: 100,
+          nextExerciseId: 100,
 
-      <article class="category-card">
-        <h3>Legs</h3>
-        <p>Description: Strength training for your lower body.</p>
-        <p>Exercises: Squats, Lunges, Deadlifts</p>
-        <p><a href="#">Edit</a> | <a href="#">Delete</a></p>
-      </article>
+          categories: [
+          {
+            id: 42,
+            categoryName: "Legs",
+            description: "Exercise that trains the legs or lower body",
+            associatedExercises: [1, 2]
+          },
+          {
+            id: 43,
+            categoryName: "Arms",
+            description: "Upper body strength exercises",
+            associatedExercises: []
+          },
+          {
+            id: 44,
+            categoryName: "Cardio",
+            description: "Exercises that boost heart rate and endurance",
+            associatedExercises: [5]
+          }
+        ],
+        exercises: [
+          {
+            id: 1,
+            name: 'Squats',
+            description: 'A lower body exercise focusing on quads and glutes.',
+            image: 'http://example.com/squats.jpg',
+            categories: [42] // IDs
+          },
+          {
+            id: 2,
+            name: 'Deadlifts',
+            description: 'Full-body movement with focus on posterior chain.',
+            image: 'http://example.com/deadlifts.jpg',
+            categories: [42]
+          },
+          {
+            id: 5,
+            name: 'Running',
+            description: 'Cardiovascular exercise for endurance and stamina.',
+            image: 'http://example.com/running.jpg',
+            categories: [44]
+          }
+        ]
+        }
+      },
+      methods:{
+        generateCategoryId() {
+          return this.nextCategoryId++;
+        },
+        generateExerciseId() {
+          return this.nextExerciseId++;
+        },
+        getCategoryById(id){
+          for(const elem of this.categories)
+        {
+          if(elem.id === id)
+            return elem;
+        } 
+          return null;
+        },
+        getExerciseById(id){
+          return this.exercises.find(exc => exc.id === id) || null;
+        },
 
-      <article class="category-card">
-        <h3>Cardio</h3>
-        <p>Description: Exercise to improve endurance and stamina.</p>
-        <p>Exercises: Running, Cycling, Jumping Jacks</p>
-        <p><a href="#">Edit</a> | <a href="#">Delete</a></p>
-      </article>
-    </section>
+     
+        getCategoryNamesFor(exercise) {
+          const names = [];
+          for (const id of exercise.categories) {
+            const cat = this.getCategoryById(id);
+            if (cat) // if null .. ignore
+            {
+              names.push(cat.categoryName);
+            }
+          }
+          return names.join(", ");
+        },
+        //REC 28:00
 
-  </main>
 
-  <footer class="footer">
-    <p>&copy; 2025 Sportsplanner Admin Panel</p>
-  </footer>
+        justAString: function() {
+          // this refers to the application 
+          return "hellooooooooo"
+        }
+      },
+      computed:{
+
+      },
+      mounted(){
+
+      }
+    }).mount('#app')
+  </script>
 
 </body>
 </html>

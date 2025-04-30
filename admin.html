@@ -55,7 +55,7 @@
               <select id="category-exercises"
                     name="category-exercises"
                     multiple
-                    v-model="currentCategory.associatedExercises">
+                    v-model="selectedExercises">
               <option
                 v-for="exercise in exercises"
                 :key="exercise.id"
@@ -175,8 +175,7 @@
       return{
               id: null,
               categoryName: "",
-              description: '',
-              associatedExercises: []
+              description: ""
       };
     }
     function createEmptyExcercise() 
@@ -213,32 +212,30 @@
           viewExcToggle: true,
           viewCatToggle: true,
 
+
+
           currentCategory: createEmptyCategory(),
           currentExcercise: createEmptyExcercise(),
-
-
+          selectedExercises: [],
 
 
 
           //DUMMY DATA 
           categories: [
-          {
+          { 
             id: 42,
             categoryName: "Legs",
             description: "Exercise that trains the legs or lower body",
-            associatedExercises: [1, 2]
           },
           {
             id: 43,
             categoryName: "Arms",
             description: "Upper body strength exercises",
-            associatedExercises: []
           },
           {
             id: 44,
             categoryName: "Cardio",
             description: "Exercises that boost heart rate and endurance",
-            associatedExercises: [5]
           }
         ],
         exercises: [
@@ -306,38 +303,87 @@
         this.isEditingExcercise = false;
       },
 
-      addOrUpdateCategory() 
-      {
-        if (!this.currentCategory.categoryName)  // just enforces the need of a name
+      // addOrUpdateCategory() 
+      // {
+      //   if (!this.currentCategory.categoryName)  // just enforces the need of a name
+      //   {
+      //     alert('Please fill in a category name.');
+      //     return;
+      //   }
+
+      //   if (this.isEditingCategory) {
+      //     // If editing, find the existing category by ID and replace it
+      //     const index = this.categories.findIndex(cat => cat.id === this.currentCategory.id);
+      //     if (index !== -1) 
+      //     {
+      //       this.categories.splice(index, 1, { ...this.currentCategory });
+      //     }
+      //   } 
+      //   else 
+      //   {
+      //     // If adding new, create a new category with a new ID
+      //     const newCategory = {
+      //       ...this.currentCategory,  //deconstruct and copy contents and references
+      //       id: this.generateCategoryId()  // overwrite null ID with brandnew one 
+      //     };
+      //     this.categories.push(newCategory);
+      //   }
+
+
+      //   //FIXME: When adding a category and associating excercises, the excercises must also be updated to reflect the changes made
+      //   //remove redundant saving of associated excercies  one reference excercise -> categories is enough
+      //   //WORKPENDING: 
+
+      //   this.resetCategoryForm();
+      // },
+
+        addOrUpdateCategory() 
         {
+        if (!this.currentCategory.categoryName) {
           alert('Please fill in a category name.');
           return;
         }
 
         if (this.isEditingCategory) {
-          // If editing, find the existing category by ID and replace it
+          // Update existing category by ID
           const index = this.categories.findIndex(cat => cat.id === this.currentCategory.id);
-          if (index !== -1) 
-          {
+          if (index !== -1) {
             this.categories.splice(index, 1, { ...this.currentCategory });
           }
-        } 
-        else 
+        } else 
         {
-          // If adding new, create a new category with a new ID
-          const newCategory = {
-            ...this.currentCategory,  //deconstruct and copy contents and references
-            id: this.generateCategoryId()  // overwrite null ID with brandnew one 
+          // Create new category
+          const newCategory = 
+          {
+            ...this.currentCategory,
+            id: this.generateCategoryId()
           };
           this.categories.push(newCategory);
+          this.currentCategory.id = newCategory.id; // ensure ID exists before syncing
         }
 
+        // ✅ Sync exercise.categories based on selectedExercises
+        for (const exercise of this.exercises) 
+        {
+          const isSelected = this.selectedExercises.includes(exercise.id);
+          const hasCategory = exercise.categories.includes(this.currentCategory.id);
 
-        //FIXME: When adding a category and associating excercises, the excercises must also be updated to reflect the changes made
-        //remove redundant saving of associated excercies  one reference excercise -> categories is enough
-        //WORKPENDING: 
+          if (isSelected && !hasCategory) 
+          {
+            exercise.categories.push(this.currentCategory.id);
+          }
 
+          if (!isSelected && hasCategory) 
+          {
+            exercise.categories = exercise.categories.filter(
+              id => id !== this.currentCategory.id
+            );
+          }
+        }
+
+        // ✅ Reset form and helper
         this.resetCategoryForm();
+        this.selectedExercises = [];
       },
 
 
@@ -345,6 +391,7 @@
       {
         this.currentCategory = createEmptyCategory();
         this.isEditingCategory = false;
+        this.selectedExercises = [];
       },
 
 
@@ -389,11 +436,16 @@
 
     startEditCategory(category) 
     {
-        // Important: Create a *copy* of the dish object for editing
+        // Important: Create a *copy* of the category object for editing
         // to avoid modifying the list directly via v-model before saving.
-        this.currentCategory = {...category, associatedExercises: [...category.associatedExercises]};
-        console.log('Started editing:', category.name);
+        this.currentCategory = {...category};
         this.isEditingCategory = true;
+
+        //load all associated excercises with category into selectedExercises as excerciseIDs
+        this.selectedExercises = this.exercises
+        .filter(e => e.categories.includes(category.id))
+        .map(e => e.id);
+
         document.getElementById('addNewCatSection').scrollIntoView();
     },
 
@@ -442,31 +494,22 @@
 
 
       // the excercies that belong to a CATEGORY  
-      publishedExcercisesPerCategory()
+      publishedExcercisesPerCategory() 
       {
       const map = {};
-      for(const cat of this.categories)
+      for (const cat of this.categories) 
       {
-        let excNames = cat.associatedExercises //holds exercise IDs 
-        .map(id => this.getExerciseById(id)?.name || 'Unknown')
-        .join(", ");
+        const names = this.exercises
+          .filter(e => e.categories.includes(cat.id))
+          .map(e => e.name);
 
-        //Save the final string (excNames) into map.
-        //Use the category's ID (cat.id) as the key.
-
-        if(excNames === "")
-        {
-          excNames = "No Exercises";
-        }
-        else
-        {
-          excNames = "Excercises: " + excNames;
-        }
-
-        map[cat.id] = excNames;
+        map[cat.id] = names.length
+          ? "Exercises: " + names.join(", ")
+          : "No Exercises";
       }
-      return map;
+        return map;
       }
+
       },
       mounted(){
       }

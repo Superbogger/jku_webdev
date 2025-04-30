@@ -16,6 +16,13 @@
   }
 
 
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   *{
     border: 1px solid yellowgreen;
@@ -28,12 +35,22 @@
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   header, footer {
     background-color: var(--bg-section);
     padding: 1rem 2rem;
     text-align: center;
+    display: flex;
+    justify-content: space-between;
   }
   
   /* descendant selector ( select h1 any depth nested ) */
@@ -274,10 +291,9 @@
     }
 
     .nav-list {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
+      display: flex;
+      justify-content: center;
+      /* gap: 0.75rem;
       background-color: var(--bg-section);
       padding: 1rem 0;
       position: absolute;
@@ -285,11 +301,11 @@
       left: 0;
       width: 100%;
       z-index: 1000;
-      text-align: center;
+      text-align: center; */
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     }
 
-    .nav-list.active {
+    /* .nav-list.active {
       display: flex;
-    }
+    } */
   }

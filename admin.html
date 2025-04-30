@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sportsplanner Admin View</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styleAdmin.css">
   <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.5.1/dist/tailwind.min.css" rel="stylesheet" type="text/css" /> -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
@@ -12,143 +12,157 @@
 <body>
 
   <div id="app">
-    <header class="header">
-      <h1>Sportsplanner Admin View</h1>
-      <nav class="nav">
-        <button id="hamburger-icon">☰</button>
-        <ul class="nav-list">
-          <li><a href="#add-category" class="nav-link">Add Category</a></li>
-          <li><a href="#add-exercise" class="nav-link">Add Exercise</a></li>
-          <li><a href="#all-exercises" class="nav-link">View Exercises</a></li>
-          <li><a href="#all-categories" class="nav-link">View Categories</a></li>
-        </ul>
-      </nav>
-    </header>
+
+    
+    <div class="headcolor">
+      <header class="header">
+        <h1 style="width:140px; height:20px; font-family:monospace; font-size:26px; font-weight:bold; color:#4ea8de;"> ░▐█▀█░Sportsplanner</h1>
+        <nav class="nav">
+          <ul class="nav-list">
+            <button id="hamburger-icon" style="color: whitesmoke;">☰</button>
+            <li><a href="#add-category" class="nav-link">Add Category</a></li>
+            <li><a href="#add-exercise" class="nav-link">Add Exercise</a></li>
+            <li><a href="#all-exercises" class="nav-link">View Exercises</a></li>
+            <li><a href="#all-categories" class="nav-link">View Categories</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
     <main class="main">
 
          <!-- SECTION: INPUT -->
          <!-- SUBSECTION:  Add/Update Category-->
-      <section id="add-category" class="section section-add-category">
-        <h2 id="addNewCatSection">{{isEditingCategory ? 'Edit Category' : 'Add New Category' }}</h2>
-        <p>Create or describe a new exercise category, such as “Legs,” “Cardio,” or “Core.”</p>
-        <form class="form-add-category" @submit.prevent="addOrUpdateCategory">
-          <div>
-            <input type="hidden" v-model="currentCategory.id">
-            <label for="category-name">Category Name:</label>         
-            <input type="text" id="category-name" name="category-name" v-model="currentCategory.categoryName" placeholder="e.g. Legs, Cardio" required>
-          </div>
-          <div>
-            <label for="category-description">Description:</label>
-            <textarea id="category-description" name="category-description" v-model="currentCategory.description" rows="3" placeholder="Short description..."></textarea>
-          </div>
-          <div>
-            <label for="category-exercises">Associate Existing Exercises:</label>
-            <select id="category-exercises"
-                  name="category-exercises"
-                  multiple
-                  v-model="currentCategory.associatedExercises">
-            <option
-              v-for="exercise in exercises"
-              :key="exercise.id"
-              :value="exercise.id">
-              {{ exercise.name }}
-            </option>
-          </select>
-          </div>
-          <button type="button" class="btn-create-category" @click="addOrUpdateCategory">{{isEditingCategory? "Update" : "Create Category"}}</button>
-          <button type="button" v-if="isEditingCategory" @click="cancelEditCategory">
-            Cancel Edit
-          </button>
-        </form>
-      </section>
+      <div class="input">
 
-          <!-- SUBSECTION:  Add/Update Excercise-->
-      <section id="add-exercise" class="section section-add-exercise">
-        <h2 id="addNewExcSection">{{isEditingExcercise ? 'Edit Excercise' : 'Add New Excercise' }}</h2>
-        <p>Define a new exercise with its basic details.</p>
-        <form class="form-add-exercise" @submit.prevent="addOrUpdateExcercise">
-          <div>
-            <input type="hidden" v-model="currentExcercise.id">
-            <label for="exercise-name">Exercise Name:</label>
-            <input type="text" id="exercise-name" name="exercise-name" v-model="currentExcercise.name" placeholder="e.g. Push-Ups" required>
-          </div>
-          <div>
-            <label for="exercise-description">Description:</label>
-            <textarea id="exercise-description" name="exercise-description" v-model="currentExcercise.description" rows="3" placeholder="Tips, form cues, etc."></textarea>
-          </div>
-          <div>
-            <label for="exercise-image">Image URL:</label>
-            <input type="url" id="exercise-image" name="exercise-image" v-model="currentExcercise.image" placeholder="http://example.com/image.jpg">
-          </div>
-          <div>
-            <label for="exercise-categories">Select Categories:</label>
+        <section id="add-category" class="section section-add-category">
 
-          <select id="exercise-categories"
-              name="exercise-categories"
-              multiple
-              v-model="currentExcercise.categories">
-              <!-- :key internal item identification vor vDOM manipulation by VUE -->
-              <!-- :value =   is what is getting saved into v-model (.categories) -->
-            <option 
-              v-for="category in categories"
-              :key="category.id"
-              :value="category.id">
-              {{ category.categoryName }}
-            </option>
-          </select>
+          <h2 id="addNewCatSection">{{isEditingCategory ? 'Edit Category' : 'Add New Category' }}</h2>
+          <p class="descriptionText">Define a new category.</p>
+          <form class="form-add-category" @submit.prevent="addOrUpdateCategory">
+            <div>
+              <input type="hidden" v-model="currentCategory.id">
+              <label for="category-name">Category Name:</label>
+              <input type="text" id="category-name" name="category-name" v-model="currentCategory.categoryName" placeholder="e.g. Legs, Cardio" required>
+            </div>
+            <div>
+              <label for="category-description">Description:</label>
+              <textarea id="category-description" name="category-description" v-model="currentCategory.description" rows="3" placeholder="Short description..."></textarea>
+            </div>
+            <div>
+              <label for="category-exercises">Associate Existing Exercises:</label>
+              <select id="category-exercises"
+                    name="category-exercises"
+                    multiple
+                    v-model="currentCategory.associatedExercises">
+              <option
+                v-for="exercise in exercises"
+                :key="exercise.id"
+                :value="exercise.id">
+                {{ exercise.name }}
+              </option>
+            </select>
+            </div>
+            <button type="button" class="inbutton btn-create-category" @click="addOrUpdateCategory">{{isEditingCategory? "Update" : "Create Category"}}</button>
+            <button type="button" class="inbutton cancel-category" v-if="isEditingCategory" @click="cancelEditCategory">
+              Cancel Edit
+            </button>
+          </form>
 
+        </section>
+            <!-- SUBSECTION:  Add/Update Excercise-->
+        <section id="add-exercise" class="section section-add-exercise">
+          <h2 id="addNewExcSection">{{isEditingExcercise ? 'Edit Excercise' : 'Add New Excercise' }}</h2>
+          <p class="descriptionText">Define a new exercise.</p>
+          <form class="form-add-exercise" @submit.prevent="addOrUpdateExcercise">
+            <div>
+              <input type="hidden" v-model="currentExcercise.id">
+              <label for="exercise-name">Exercise Name:</label>
+              <input type="text" id="exercise-name" name="exercise-name" v-model="currentExcercise.name" placeholder="e.g. Push-Ups" required>
+            </div>
+            <div>
+              <label for="exercise-description">Description:</label>
+              <textarea id="exercise-description" name="exercise-description" v-model="currentExcercise.description" rows="3" placeholder="Short description..."></textarea>
+            </div>
+            <div>
+              <label for="exercise-image">Image URL:</label>
+              <input type="url" id="exercise-image" name="exercise-image" v-model="currentExcercise.image" placeholder="http://example.com/image.jpg">
+            </div>
+            <div>
+              <label for="exercise-categories">Select Categories:</label>
+            <select id="exercise-categories"
+                name="exercise-categories"
+                multiple
+                v-model="currentExcercise.categories">
+                <!-- :key internal item identification vor vDOM manipulation by VUE -->
+                <!-- :value =   is what is getting saved into v-model (.categories) -->
+              <option
+                v-for="category in categories"
+                :key="category.id"
+                :value="category.id">
+                {{ category.categoryName }}
+              </option>
+            </select>
+      </div>
+            <button type="button" class="inbutton btn-create-exercise" @click="addOrUpdateExcercise">{{isEditingExcercise? "Update" : "Create Excercise"}}</button>
+            <button type="button" class="inbutton cancel-excercise" v-if="isEditingExcercise" @click="cancelEditExcercise">Cancel Edit</button>
           </div>
-          <button type="button" class="btn-create-exercise" @click="addOrUpdateExcercise">{{isEditingExcercise? "Update" : "Create Excercise"}}</button>
-          <button type="button" v-if="isEditingExcercise" @click="cancelEditExcercise">Cancel Edit</button>
+  
 
         </form>
       </section>
 
         <!-- SECTION: OUTPUT -->
         <!-- SUBSECTION: ALL EXCERCISES -->
-      <section id="all-exercises" class="section section-all-exercises" v-if="exercises.length">
-        <h2>All Exercises</h2>
-        <table class="exercise-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Image</th>
-              <th>Categories</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="exercise in exercises">
-              <td>{{exercise.name}}</td>
-              <td>{{exercise.description}}</td>
-              <td><img src="http://example.com/squats.jpg" alt="Image" width="60" height="40"></td>
-              <td>{{publishedCategoryNamesPerExcercise[exercise.id]}}</td>
-              <td><a href="#" @click.prevent="startEditExcercise(exercise)">Edit</a> | 
-                <a href="#" @click.prevent="deleteExcercise(exercise.id)">Delete</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+      <div class="output">
+        <section id="all-exercises" class="section section-all-exercises" v-if="exercises.length">
+          <h2>All Exercises</h2>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Categories</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="exercise in exercises">
+                <td>{{exercise.name}}</td>
+                <td>{{exercise.description}}</td>
+                <td><img src="http://example.com/squats.jpg" alt="Image" width="60" height="40"></td>
+                <td>{{publishedCategoryNamesPerExcercise[exercise.id]}}</td>
+                <td><a href="#" @click.prevent="startEditExcercise(exercise)">Edit</a> |
+                  <a href="#" @click.prevent="deleteExcercise(exercise.id)">Delete</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+          <!-- SUBSECTION: ALL CATEGORIES -->
+        <section id="all-categories" class="section section-all-categories">
+          <h2>All Categories</h2>
+          <div class="categoryCard" v-for="category in categories">
+            <article class="category-card">
+              <h3>{{category.categoryName}}</h3>
+              <p>{{category.description}}</p>
+              <p>{{publishedExcercisesPerCategory[category.id]}}</p>
+              <a href="#" @click.prevent="startEditCategory(category)">Edit</a> |
+              <a href="#" @click.prevent="deleteCategory(category.id)">Delete</a></p>
+            </article>
+          </div>
+        </section>
+      </div>
 
 
-        <!-- SUBSECTION: ALL CATEGORIES -->
-      <section id="all-categories" class="section section-all-categories">     
-        <h2>All Categories</h2>
 
-        <div v-for="category in categories">
-          <article class="category-card">
-            <h3>{{category.categoryName}}</h3>
-            <p>{{category.description}}</p>
-            <p>{{publishedExcercisesPerCategory[category.id]}}</p>
-            <a href="#" @click.prevent="startEditCategory(category)">Edit</a> | 
-            <a href="#" @click.prevent="deleteCategory(category.id)">Delete</a></p>
-          </article>
-        </div>
-      </section>
     </main>
+
+
     <footer class="footer">
-      <p>&copy; 2025 Sportsplanner Admin Panel</p>
+      <p>&copy; 2025 Sportsplanner Admin Panel | Bogdan Breiner</p>
     </footer>
   </div>
 
@@ -189,6 +203,15 @@
           //Possible values none, category, excercise
           isEditingExcercise: false,
           isEditingCategory: false,
+
+
+
+          //Visbility Toggles from header
+          // WORKPENDING: 
+          addCatViewToggle: true,
+          addExcViewToggle: true,
+          viewExcToggle: true,
+          viewCatToggle: true,
 
           currentCategory: createEmptyCategory(),
           currentExcercise: createEmptyExcercise(),
@@ -308,6 +331,11 @@
           };
           this.categories.push(newCategory);
         }
+
+
+        //FIXME: When adding a category and associating excercises, the excercises must also be updated to reflect the changes made
+        //remove redundant saving of associated excercies  one reference excercise -> categories is enough
+        //WORKPENDING: 
 
         this.resetCategoryForm();
       },

@@ -1,0 +1,292 @@
+:root {
+    /* define variables used throughout the document  */
+    /* a variable definition is made via --somename: values; */
+      --bg-main: #1f2a38;  
+      --bg-section: #27323f;
+      --text-main: #dce3ec;
+      --text-muted: #9baec8;
+      --accent: #4ea8de;
+      --accent-hover: #68b3e6;
+      --border: #3a4757;
+      --input-bg: #1c2430;
+      --input-border: #4ea8de66;
+      --font-main: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+
+
+
+
+    /* TODO: */
+input[type="text"],
+textarea,
+select {
+  background: transparent;          /* Remove white background for cleaner look */
+  border: none;                     /* Remove default box borders */
+  border-bottom: 2px solid #aaa;    /* Add subtle underline */
+  color: #eee;                      /* Light text color for dark background */
+  font-size: 1rem;                  /* Base readable font size */
+  /* padding: 6px 4px;                 /* Inner spacing (top/bottom, left/right) */
+  width: 100%;                      /*Full width of parent container*/
+  outline: none; /*                    Remove blue outline on focus */
+  transition: border-color 0.3s ease; /* Smooth underline color change on focus */
+}
+
+textarea{
+  resize: none;
+}
+
+/* TODO: */
+button {
+  background: #eee;                 /* Light background */
+  color: #111;                      /* Dark text for contrast */
+  border: none;                     /* Remove border */
+  padding: 8px 12px;                /* Button padding */
+  margin-top: 1rem;                 /* Space above button */
+  font-weight: bold;                /* Bold text */
+  cursor: pointer;                  /* Pointer cursor on hover */
+  border-radius: 4px;               /* Rounded corners for modern style */
+}
+
+/* Select all <select> elements that have the multiple attribute.” */
+select[multiple] {
+  border: 1px solid white; /* remove border/underline */
+  background-color: transparent; /* optional: match input style */
+  padding: 8px;
+  border-radius: 8px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+.nav-link{
+  background-color: #1e323f;
+  border: 1px solid black; 
+  border-radius: 5px;
+  padding: 8px;
+  color: #dce3ec;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+
+
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+ /* min-height: 100vh; /* ensures full viewport height */
+}
+
+.descriptionText{
+  padding: 8px;
+  font-style: italic;
+  font-size: .8em;
+  border-bottom: 1px dotted white;
+  margin-bottom: 16px;
+}
+
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  padding: 16px;
+  margin: 0 128px 32px 128px;
+  align-items: baseline;
+
+  /* TODO: hamburger ?  */
+  min-width: 900px;
+}
+
+.headcolor{
+  background-color: #07080b;
+}
+
+
+main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  /* flex-wrap: wrap; */
+  flex-grow: 1;
+}
+
+
+
+
+
+.input{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  /* background-color: rgb(99, 51, 51); */
+  flex-wrap: wrap; 
+  padding: 16px;
+} 
+
+.input section{
+
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  padding: 16px;
+  border: 1px solid white;
+  border-radius: 16px;
+  width: 300px;
+  background-color: var(--input-bg);
+  /* align-items: center; */
+}
+
+.input form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  align-items: stretch;
+  flex-grow: 1;
+}
+
+.inbutton{
+  align-self: center;
+  height: 30px;
+  width: 180px;
+  margin-top: 16px;
+}
+
+
+/* .output{
+  color: black;
+  background-color: white;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+} */
+
+.output {
+  color: black;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* width: 100%; */
+}
+
+
+
+ .output section{
+  padding: 32px;
+  margin-bottom: 32px;
+}
+
+
+/* *{
+  border: 1px solid yellowgreen;
+} */
+
+
+.categoryCard{
+  border: 1px solid black;
+  padding: 8px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  gap: 64px;
+  margin-bottom: 8px;
+}
+
+
+
+.exercise-table td,
+.exercise-table th {
+  padding: 12px 16px; /* more space left/right */
+  text-align: left;
+  vertical-align: top;
+}
+
+.exercise-table th,
+.exercise-table td {
+  border: 1px solid #ccc;         /* cell borders */
+  padding: 12px 16px;             /* spacing inside cells */
+  text-align: left;
+  vertical-align: top;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  padding: 12px 16px;
+  background-color: var(--bg-section);
+  color: var(--text-muted);
+  text-align: center;
+  font-size: 0.8rem;
+  height: 48px;               /* fixed height */
+  overflow: hidden;          /* hides overflow text */
+  line-height: 48px;         /* vertically center text */
+  white-space: nowrap;       /* prevent line break */
+}
+
+/* OUTPUT #########################################*/
+/* space between manipulating area and viewing area */
+/* .output{ 
+padding-top: 32px;
+}   */
+
+
+
+
+
+/* MQ */
+
+#hamburger-icon {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 2rem;
+  cursor: pointer;
+  display: none; /* hidden by default */
+}
+
+/* When screen is smaller than 768px */
+@media (max-width: 768px) {
+  .nav-list {
+    display: none; /* hide nav links */
+  }
+  #hamburger-icon {
+    font-size: 2.5rem; /* or even 3rem */
+    display: block; /* show hamburger */
+  }
+}

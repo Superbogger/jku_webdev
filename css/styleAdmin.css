@@ -13,7 +13,14 @@
       --font-main: 'JetBrains Mono', 'Fira Code', monospace;
     }
 
-
+    h1{
+      width:140px;
+       height:20px;
+        font-family:monospace;
+         font-size:26px;
+          font-weight:bold;
+           color:#4ea8de;
+    }
 
 
     /* TODO: */
@@ -75,9 +82,31 @@ select[multiple] {
   color: #dce3ec;
 }
 
+
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  padding: 16px;
+  margin: 0 128px 32px 128px;
+  align-items: baseline;
+
+  /* TODO: hamburger ?  */
+  min-width: 900px;
+}
+
+.headcolor{
+  background-color: #07080b;
+}
+
+
+
 .nav-list {
   display: flex;
   justify-content: center;
+
+  flex-wrap: wrap;
   align-items: center;
   gap: 1.5rem;
   list-style: none;
@@ -89,7 +118,10 @@ select[multiple] {
   font-weight: 500;
 }
 
-
+.nav-link.hidden-nav-link{
+box-shadow: 0 0 15px #ff0000;
+border: 1px solid #888888;
+}
 
 
 body {
@@ -113,22 +145,6 @@ body {
   margin-bottom: 16px;
 }
 
-
-.header{
-  display: flex;
-  justify-content: space-between;
-  /* align-items: center; */
-  padding: 16px;
-  margin: 0 128px 32px 128px;
-  align-items: baseline;
-
-  /* TODO: hamburger ?  */
-  min-width: 900px;
-}
-
-.headcolor{
-  background-color: #07080b;
-}
 
 
 main{
@@ -170,7 +186,6 @@ main{
 .input section.editing-active{
   box-shadow: 0 0 15px rgba(255, 165, 0, 0.7); /* Orange glow */
   border: 1px solid orange;
-
 }
 
 
@@ -275,6 +290,33 @@ padding-top: 32px;
 
 
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* body {
+  display: flex;
+  flex-direction: column;
+} */
+
+#app {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+main {
+  flex-grow: 1; /* <-- This makes the content area expand to fill the space */
+}
+
+footer {
+  background: #111;
+  color: white;
+  padding: 16px;
+  text-align: center;
+}
+
 
 /* MQ */
 
@@ -287,7 +329,10 @@ padding-top: 32px;
   display: none; /* hidden by default */
 }
 
+
+
 /* When screen is smaller than 768px */
+
 @media (max-width: 768px) {
   .nav-list {
     display: none; /* hide nav links */
@@ -297,3 +342,4 @@ padding-top: 32px;
     display: block; /* show hamburger */
   }
 }
+

@@ -16,14 +16,14 @@
     
     <div class="headcolor">
       <header class="header">
-        <h1 style="width:140px; height:20px; font-family:monospace; font-size:26px; font-weight:bold; color:#4ea8de;"> ░▐█▀█░Sportsplanner</h1>
+        <h1>░▐█▀█░Sportsplanner</h1>
         <nav class="nav">
           <ul class="nav-list">
             <button id="hamburger-icon" style="color: whitesmoke;">☰</button>
-            <li><a href="#add-category" class="nav-link">Add Category</a></li>
-            <li><a href="#add-exercise" class="nav-link">Add Exercise</a></li>
-            <li><a href="#all-exercises" class="nav-link">View Exercises</a></li>
-            <li><a href="#all-categories" class="nav-link">View Categories</a></li>
+            <li><a href="#"   @click="toggleVisAddCategory"  :class="['nav-link', { 'hidden-nav-link': !addCatViewToggle }]">Add Category</a></li>
+            <li><a href="#"   @click="toggleVisAddExcercise" :class="{'hidden-nav-link': !addExcViewToggle}" class="nav-link">Add Exercise</a></li>
+            <li><a href="#"  @click="toggleVisAllExc"        :class="{'hidden-nav-link': !viewExcToggle}" class="nav-link">View Exercises</a></li>
+            <li><a href="#" @click="toggleVisAllCat"         :class="{'hidden-nav-link': !viewCatToggle}" class="nav-link">View Categories</a></li>
           </ul>
         </nav>
       </header>
@@ -36,7 +36,11 @@
          <!-- SUBSECTION:  Add/Update Category-->
       <div class="input">
 
-        <section id="add-category" class="section section-add-category" :class="{'editing-active': isEditingCategory}">
+        <div v-if="!addCatViewToggle && !addExcViewToggle && !viewExcToggle && !viewCatToggle">
+          <p style="text-align:center; font-style:italic; opacity:0.6;">No sections are currently visible.</p>
+        </div>
+
+        <section v-if="addCatViewToggle" id="add-category" class="section section-add-category" :class="{'editing-active': isEditingCategory}">
 
           <h2 id="addNewCatSection">{{isEditingCategory ? 'Edit Category' : 'Add New Category' }}</h2>
           <p class="descriptionText">Define a new category.</p>
@@ -72,7 +76,7 @@
 
         </section>
             <!-- SUBSECTION:  Add/Update Excercise-->
-        <section id="add-exercise" class="section section-add-exercise">
+        <section v-if="addExcViewToggle" id="add-exercise" class="section section-add-exercise" :class="{'editing-active': isEditingExcercise}">
           <h2 id="addNewExcSection">{{isEditingExcercise ? 'Edit Excercise' : 'Add New Excercise' }}</h2>
           <p class="descriptionText">Define a new exercise.</p>
           <form class="form-add-exercise" @submit.prevent="addOrUpdateExcercise">
@@ -116,7 +120,7 @@
         <!-- SECTION: OUTPUT -->
         <!-- SUBSECTION: ALL EXCERCISES -->
       <div class="output">
-        <section id="all-exercises" class="section section-all-exercises" v-if="exercises.length">
+        <section v-if="viewExcToggle" id="all-exercises" class="section section-all-exercises" v-if="exercises.length">
           <h2>All Exercises</h2>
           <table class="exercise-table">
             <thead>
@@ -142,7 +146,7 @@
         </section>
 
           <!-- SUBSECTION: ALL CATEGORIES -->
-        <section id="all-categories" class="section section-all-categories">
+        <section v-if="viewCatToggle" id="all-categories" class="section section-all-categories">
           <h2>All Categories</h2>
           <div class="categoryCard" v-for="category in categories">
             <article class="category-card">
@@ -206,7 +210,6 @@
 
 
           //Visbility Toggles from header
-          // WORKPENDING: 
           addCatViewToggle: true,
           addExcViewToggle: true,
           viewExcToggle: true,
@@ -265,7 +268,28 @@
       },
       methods:{
 
-    
+      toggleVisAddCategory() 
+      {
+        this.addCatViewToggle = !this.addCatViewToggle;
+        this.resetExcerciseForm();
+      },
+      toggleVisAddExcercise() 
+      {
+        this.addExcViewToggle = !this.addExcViewToggle;
+        this.resetCategoryForm();
+      },
+      toggleVisAllExc() 
+      {
+        this.viewExcToggle = !this.viewExcToggle;
+      },
+      toggleVisAllCat() 
+      {
+        this.viewCatToggle = !this.viewCatToggle;
+      },
+
+
+
+
       addOrUpdateExcercise()
       {
         if (!this.currentExcercise.name)  // just enforces the need of a name
@@ -392,6 +416,15 @@
 
      startEditExcercise(excercise)
     {
+      //mutual exclusive editing
+      if(this.isEditingCategory)
+      {
+        alert("Finish editing the Category first ;-)")
+        return;
+      }
+
+
+
       this.currentExcercise = {...excercise, categories: [...excercise.categories]};
       console.log('Started editing:', excercise.name);
       this.isEditingExcercise = true;
@@ -411,6 +444,14 @@
 
     startEditCategory(category) 
     {
+      if(this.isEditingExcercise)
+      {
+        alert("Finish editing the Excercise first ;-)")
+        return;
+      }
+
+
+
         // Important: Create a *copy* of the category object for editing
         // to avoid modifying the list directly via v-model before saving.
         this.currentCategory = {...category};
@@ -452,6 +493,15 @@
       
       },
       computed:{
+
+      
+      // publishedHeadingText()
+      // {
+      //   if(!addCatViewToggle && !addExcViewToggle)
+
+
+      // }
+
 
         // categories that belong to a EXCERCISE  (example plank can be  CORE and Stability)
       publishedCategoryNamesPerExcercise() 
@@ -501,3 +551,7 @@
 
 </body>
 </html>
+
+<!-- TODO:   -->
+ <!-- show message when everything is turned off -->
+  <!-- bolt footer to the bottom of the page  -->

@@ -167,6 +167,13 @@ main{
   /* align-items: center; */
 }
 
+.input section.editing-active{
+  box-shadow: 0 0 15px rgba(255, 165, 0, 0.7); /* Orange glow */
+  border: 1px solid orange;
+
+}
+
+
 .input form{
   display: flex;
   flex-direction: column;

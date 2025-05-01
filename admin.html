@@ -36,7 +36,7 @@
          <!-- SUBSECTION:  Add/Update Category-->
       <div class="input">
 
-        <section id="add-category" class="section section-add-category">
+        <section id="add-category" class="section section-add-category" :class="{'editing-active': isEditingCategory}">
 
           <h2 id="addNewCatSection">{{isEditingCategory ? 'Edit Category' : 'Add New Category' }}</h2>
           <p class="descriptionText">Define a new category.</p>
@@ -303,39 +303,6 @@
         this.isEditingExcercise = false;
       },
 
-      // addOrUpdateCategory() 
-      // {
-      //   if (!this.currentCategory.categoryName)  // just enforces the need of a name
-      //   {
-      //     alert('Please fill in a category name.');
-      //     return;
-      //   }
-
-      //   if (this.isEditingCategory) {
-      //     // If editing, find the existing category by ID and replace it
-      //     const index = this.categories.findIndex(cat => cat.id === this.currentCategory.id);
-      //     if (index !== -1) 
-      //     {
-      //       this.categories.splice(index, 1, { ...this.currentCategory });
-      //     }
-      //   } 
-      //   else 
-      //   {
-      //     // If adding new, create a new category with a new ID
-      //     const newCategory = {
-      //       ...this.currentCategory,  //deconstruct and copy contents and references
-      //       id: this.generateCategoryId()  // overwrite null ID with brandnew one 
-      //     };
-      //     this.categories.push(newCategory);
-      //   }
-
-
-      //   //FIXME: When adding a category and associating excercises, the excercises must also be updated to reflect the changes made
-      //   //remove redundant saving of associated excercies  one reference excercise -> categories is enough
-      //   //WORKPENDING: 
-
-      //   this.resetCategoryForm();
-      // },
 
       addOrUpdateCategory() 
       {
@@ -492,9 +459,17 @@
         const map = {};
         for (const exercise of this.exercises) 
         {
-          const catNames = exercise.categories
-            .map(id => this.getCategoryById(id)?.categoryName || 'Unknown')
-            .join(", ");
+          let catNames;
+          if(exercise.categories.length)
+          {
+            catNames = exercise.categories
+                        .map(id => this.getCategoryById(id).categoryName)
+                        .join(", ");
+          }
+          else
+          {
+            catNames = "Not Assigned"
+          }
           map[exercise.id] = catNames;
         }
         return map;

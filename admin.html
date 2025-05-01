@@ -337,9 +337,10 @@
       //   this.resetCategoryForm();
       // },
 
-        addOrUpdateCategory() 
+      addOrUpdateCategory() 
+      {
+        if (!this.currentCategory.categoryName) 
         {
-        if (!this.currentCategory.categoryName) {
           alert('Please fill in a category name.');
           return;
         }
@@ -347,7 +348,8 @@
         if (this.isEditingCategory) {
           // Update existing category by ID
           const index = this.categories.findIndex(cat => cat.id === this.currentCategory.id);
-          if (index !== -1) {
+          if (index !== -1) 
+          {
             this.categories.splice(index, 1, { ...this.currentCategory });
           }
         } else 
@@ -362,28 +364,34 @@
           this.currentCategory.id = newCategory.id; // ensure ID exists before syncing
         }
 
-        // ✅ Sync exercise.categories based on selectedExercises
+          //Sync exercise.categories based on selectedExercises
         for (const exercise of this.exercises) 
         {
+          //selected excercises =   = array of exercise IDs selected *for the current category*
+
+          // Check if this exercise is currently selected (i.e., should belong to the current category)
           const isSelected = this.selectedExercises.includes(exercise.id);
+
+          //Does this exercise already list this category
           const hasCategory = exercise.categories.includes(this.currentCategory.id);
 
+          //Add the category if it was selected but not yet present.
           if (isSelected && !hasCategory) 
           {
             exercise.categories.push(this.currentCategory.id);
           }
 
+          // Remove the category from this exercise if it was *not* selected anymore but is still present
           if (!isSelected && hasCategory) 
-          {
+          { //filters all 
             exercise.categories = exercise.categories.filter(
               id => id !== this.currentCategory.id
             );
           }
         }
 
-        // ✅ Reset form and helper
+        // Reset form and helper
         this.resetCategoryForm();
-        this.selectedExercises = [];
       },
 
 

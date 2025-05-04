@@ -295,11 +295,6 @@ html, body {
   margin: 0;
 }
 
-/* body {
-  display: flex;
-  flex-direction: column;
-} */
-
 #app {
   display: flex;
   flex-direction: column;

@@ -89,10 +89,10 @@
               <label for="exercise-description">Description:</label>
               <textarea id="exercise-description" name="exercise-description" v-model="currentExcercise.description" rows="3" placeholder="Short description..."></textarea>
             </div>
-            <div>
+            <!-- <div>
               <label for="exercise-image">Image URL:</label>
               <input type="url" id="exercise-image" name="exercise-image" v-model="currentExcercise.image" placeholder="http://example.com/image.jpg">
-            </div>
+            </div> -->
             <div>
               <label for="exercise-categories">Select Categories:</label>
             <select id="exercise-categories"
@@ -127,7 +127,7 @@
               <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Image</th>
+                <!-- <th>Image</th> -->
                 <th>Categories</th>
                 <th>Actions</th>
               </tr>
@@ -136,7 +136,7 @@
               <tr v-for="exercise in exercises">
                 <td>{{exercise.name}}</td>
                 <td>{{exercise.description}}</td>
-                <td><img src="http://example.com/squats.jpg" alt="Image" width="60" height="40"></td>
+                <!-- <td><img src="http://example.com/squats.jpg" alt="Image" width="60" height="40"></td> -->
                 <td>{{publishedCategoryNamesPerExcercise[exercise.id]}}</td>
                 <td><a href="#" @click.prevent="startEditExcercise(exercise)">Edit</a> |
                   <a href="#" @click.prevent="deleteExcercise(exercise.id)">Delete</a></td>
@@ -188,7 +188,7 @@
           id: null,
           name: "",
           description: '',
-          image: '',
+          // image: '',
           categories: [],
         };
     }
@@ -246,21 +246,21 @@
             id: 1,
             name: 'Squats',
             description: 'A lower body exercise focusing on quads and glutes.',
-            image: 'http://example.com/squats.jpg',
+            // image: 'http://example.com/squats.jpg',
             categories: [42] // IDs
           },
           {
             id: 2,
             name: 'Deadlifts',
             description: 'Full-body movement with focus on posterior chain.',
-            image: 'http://example.com/deadlifts.jpg',
+            // image: 'http://example.com/deadlifts.jpg',
             categories: [42]
           },
           {
             id: 5,
             name: 'Running',
             description: 'Cardiovascular exercise for endurance and stamina.',
-            image: 'http://example.com/running.jpg',
+            // image: 'http://example.com/running.jpg',
             categories: [44]
           }
         ]
@@ -428,7 +428,7 @@
       this.currentExcercise = {...excercise, categories: [...excercise.categories]};
       console.log('Started editing:', excercise.name);
       this.isEditingExcercise = true;
-      document.getElementById('addNewExcSection').scrollIntoView();
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     },
 
 
@@ -462,7 +462,7 @@
         .filter(e => e.categories.includes(category.id))
         .map(e => e.id);
 
-        document.getElementById('addNewCatSection').scrollIntoView();
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     },
 
 
@@ -552,6 +552,9 @@
 </body>
 </html>
 
+
 <!-- TODO:   -->
- <!-- show message when everything is turned off -->
-  <!-- bolt footer to the bottom of the page  -->
+  <!-- Make functional hamburger (see kommilitonen html) -->
+   <!-- Make template SVGs that cna be used as images within Categories  -->
+    <!-- STyle Edit and delete Buttons in a more modern fashiopn  -->
+  <!--  -->

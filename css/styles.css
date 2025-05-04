@@ -24,10 +24,10 @@
     padding: 0;
   }
 
-  *{
+  /* *{
     border: 1px solid yellowgreen;
   }
-  
+   */
   body {
     background-color: var(--bg-main);
     color: var(--text-main);
@@ -38,6 +38,88 @@
     display: flex;
     flex-direction: column;
   }
+
+  #app{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  main{
+    flex: 1 1 auto;
+    display: flex;
+    flex-grow: 1;
+  }
+
+  .rightPane{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center;
+    justify-content: center; */
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* LOGIN STYLING  */
+.form-login {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #555;
+  border-radius: 4px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.loginInputGroup{
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 200px;
+  min-width: 150px;
+}
+
+.form-login label{
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.form-login input{
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background-color: transparent;
+  color: white;
+}
+
+.form-login button{
+
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  background-color: #ddd;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+/* ------------------------ */
+
+
+
+
 
   .nav{
     display: flex;
@@ -82,230 +164,3 @@
     color: var(--accent);
   }
   
-  main {
-    padding: 2rem;
-  }
-  
-  .section {
-    background-color: var(--bg-section);
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  section h2{
-    color: var(--accent);
-    margin-top: 0;
-    text-align: center;
-  }
-
-
-  h3 {
-    color: var(--accent);
-    margin-top: 0;
-  }
-  
-  label {
-    display: block;
-    margin: 0.5rem 0 0.2rem;
-    font-weight: 500;
-  }
-  
-  input, textarea, select {
-    width: 100%;
-    padding: 0.6rem;
-    border-radius: 6px;
-    border: 1px solid var(--input-border);
-    background-color: var(--input-bg);
-    color: var(--text-main);
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    box-sizing: border-box;
-  }
-  
-  textarea {
-    resize: none;
-  }
-  
-  button {
-    background-color: var(--accent);
-    color: #fff;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    margin-right: 16px;
-  }
-  
-  button:hover {
-    background-color: var(--accent-hover);
-  }
-  
-  .exercise-table, .sportplan-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-  }
-  
-  .exercise-table th, .exercise-table td,
-  .sportplan-table th, .sportplan-table td {
-    border: 1px solid var(--border);
-    padding: 0.75rem;
-    text-align: left;
-  }
-  
-  .exercise-table th, .sportplan-table th {
-    background-color: #2e3a4a;
-    color: var(--text-main);
-  }
-  
-  details {
-    background-color: var(--bg-section);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    margin-bottom: 2rem;
-    padding: 0;
-    overflow: hidden;
-  }
-  
-  details[open] > summary {
-    border-bottom: 1px solid var(--border);
-  }
-  
-  summary {
-    justify-content: center;
-    list-style: none;
-    padding: 1.2rem 1.5rem;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    background-color: var(--bg-section);
-    color: var(--accent);
-    font-weight: 600;
-  }
-  
-/* 
-  :pseudo-class → element state or interaction (e.g. :hover, :focus)
-  ::pseudo-element → subpart of element (e.g. ::before, ::marker)
-*/
-/*  https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes
-    https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements */
-
-  /* hide details triangle */
-  summary::-webkit-details-marker,
-  summary::marker {
-    display: none;
-  }
-  
-  summary h2 {
-    margin: 0;
-    font-size: 1.3rem;
-    color: var(--accent);
-  }
-  
-  .category-card {
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background-color: var(--bg-section);
-  }
-  
-  a {
-    color: var(--accent);
-  }
-  
-  a:hover {
-    color: var(--accent-hover);
-    text-decoration: underline;
-  }
-  
-  form > div {
-    margin-bottom: 1.5rem;
-  }
-  
-  /* Selected Exercises Tile View */
-  .exercise-tile-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .exercise-tile {
-    background-color: var(--input-bg);
-    border: 1px solid var(--border);
-    color: var(--text-main);
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    min-width: 120px;
-    text-align: center;
-    position: relative;
-    cursor: grab;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-    transition: transform 0.15s ease;
-  }
-  
-  .exercise-tile:active {
-    cursor: grabbing;
-    transform: scale(0.98);
-  }
-  
-  .exercise-tile .remove-btn {
-    position: absolute;
-    top: 6px;
-    right: 8px;
-    background: none;
-    color: var(--accent);
-    border: none;
-    font-size: 1.1rem;
-    cursor: pointer;
-    padding: 0;
-    line-height: 1;
-  }
-  
-  .exercise-tile .remove-btn:hover {
-    color: var(--accent-hover);
-  }
-
-  #hamburger-icon {
-    display: none;
-  }
-  
-
-
-  /* Responsive Navigation for small screens */
-  @media (max-width: 640px) {
-    #hamburger-icon {
-      display: block;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: var(--accent);
-      cursor: pointer;
-      margin: 0.5rem auto;
-      text-align: center;
-    }
-
-    .nav-list {
-      display: flex;
-      justify-content: center;
-      /* gap: 0.75rem;
-      background-color: var(--bg-section);
-      padding: 1rem 0;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      text-align: center; */
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-    }
-
-    /* .nav-list.active {
-      display: flex;
-    } */
-  }

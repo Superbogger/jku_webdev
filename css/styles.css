@@ -24,10 +24,10 @@
     padding: 0;
   }
 
-  /* *{
+   *{
     border: 1px solid yellowgreen;
   }
-   */
+  
   body {
     background-color: var(--bg-main);
     color: var(--text-main);
@@ -82,7 +82,7 @@
   border: 1px solid #555;
   border-radius: 4px;
   max-width: 700px;
-  margin: auto;
+  margin: auto; /* auto center */
 }
 
 .loginInputGroup{
@@ -115,7 +115,44 @@
   cursor: pointer;
   width: 100%;
 }
+
+/* button.btn-login{
+  background-color: greenyellow;
+} */
 /* ------------------------ */
+
+/* LEFT PANE */
+.leftPane{
+  background-color: #0e1b24;
+  margin: 8px;
+  border-right: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+}
+
+.sportsplan{
+  display: flex;
+  flex-direction: row;
+}
+
+.leftPane-header{
+  display: flex;
+}
+
+/* .leftPane h2{
+  border: 1px solid white;
+  padding: 4px 16px;
+}
+ */
+
+
+
+
+
+
+
+
+
 
 
 

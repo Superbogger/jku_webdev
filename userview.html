@@ -4,133 +4,116 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/styles.css">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <title>Sportsplanner User View</title>
 </head>
 <body>
 
-  <header class="header">
-    <h1>Sportsplanner User View</h1>
-    <nav class="nav">
-      <button id="hamburger-icon">☰</button>
-      <ul class="nav-list">
-        <li><a href="#login" class="nav-link">Login</a></li>
-        <li><a href="#my-sportplans" class="nav-link">My Sportplans</a></li>
-        <li><a href="#create-sportplan" class="nav-link">Create New Sportplan</a></li>
-      </ul>
-    </nav>
-  </header>
+  <div id="app">
+    <header class="header">
+      <h1>Sportsplanner User View</h1>
+      <nav class="nav">
+        <button id="hamburger-icon">☰</button>
+        <ul class="nav-list">
+          <li><a href="#login" class="nav-link">Login</a></li>
+          <li><a href="#my-sportplans" class="nav-link">My Sportplans</a></li>
+          <li><a href="#create-sportplan" class="nav-link">Create New Sportplan</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
 
-  <main class="main">
-    <!-- SECTION: Login -->
-    <details class="section section-login">
-      <summary><h2>Login</h2></summary>
-      <section id="login">
-        <form class="form-login">
-          <div>
-            <label for="username">Name:</label>
-            <input type="text" id="username" name="username" placeholder="Enter your name" required>
-          </div>
-          <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
-          </div>
-          <button type="button" class="btn-login">Login</button>
-          <button type="button" class="btn-register">Register</button>
-        </form>
-      </section>
-    </details>
 
-    <!-- SECTION: My Sportplans -->
-    <details class="section section-sportplans">
-      <summary><h2>My Sportplans</h2></summary>
-      <section id="my-sportplans">
-        <p class="note-login-required">(This section would be greyed out if you are not logged in.)</p>
 
-        <details class="sportplan-entry">
-          <summary>Leg Day Blast</summary>
-          <table class="sportplan-table">
-            <thead>
-              <tr>
-                <th>Exercise</th>
-                <th>Reps</th>
-                <th>Sets</th>
-                <th>Weight</th>
-                <th>Duration</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Squats</td>
-                <td>10</td>
-                <td>3</td>
-                <td>–</td>
-                <td>30 sec</td>
-              </tr>
-              <tr>
-                <td>Lunges</td>
-                <td>12</td>
-                <td>3</td>
-                <td>–</td>
-                <td>30 sec</td>
-              </tr>
-            </tbody>
-          </table>
-          <p><a href="sportplan-leg-day-blast.html">View full Sportplan</a></p>
-        </details>
+      <!-- SECTION: Login -->
+      <!-- <details class="section section-login"> -->
+        <!-- <summary><h2>Login</h2></summary> -->
 
-        <details class="sportplan-entry">
-          <summary>Cardio Burner</summary>
-          <table class="sportplan-table">
-            <thead>
-              <tr>
-                <th>Exercise</th>
-                <th>Reps</th>
-                <th>Sets</th>
-                <th>Weight</th>
-                <th>Duration</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Jumping Jacks</td>
-                <td>30</td>
-                <td>3</td>
-                <td>–</td>
-                <td>60 sec</td>
-              </tr>
-            </tbody>
-          </table>
-          <p><a href="sportplan-cardio-burner.html">View full Sportplan</a></p>
-        </details>
-      </section>
-    </details>
 
-    <!-- SECTION: Create New Sportplan -->
-    <details class="section section-create">
-      <summary><h2>Create New Sportplan</h2></summary>
-      <section id="create-sportplan">
-        <form class="form-create-plan">
-          <div>
-            <label for="sportplan-name">Sportplan Name:</label>
-            <input type="text" id="sportplan-name" name="sportplan-name" placeholder="Name your plan" required>
-          </div>
-          <div>
-            <label for="exercise-search">Search Exercises:</label>
-            <input type="search" id="exercise-search" name="exercise-search" placeholder="Type to search...">
-          </div>
-          <div>
-            <label for="filter-category">Filter by Category:</label>
-            <select id="filter-category" name="filter-category">
-              <option value="">All Categories</option>
-              <option>Legs</option>
-              <option>Arms</option>
-              <option>Cardio</option>
-            </select>
-          </div>
 
-          <fieldset class="available-exercises">
-            <legend>Available Exercises</legend>
-            <table class="exercise-table">
+
+
+
+      <div v-if="loggedIn" class="leftPane">      
+      <div class="leftPane-header">
+        <h2>Sportplans</h2>
+        
+        <div> &lt; </div>
+      </div>
+
+      <div class="sportsplan">
+        <h3 class="sportsPlanTitle">Monday</h3>
+        <button>X</button>
+      </div>
+      <!-- 
+      WORKPENDING:
+      REFACTOR:
+      decide what would work best for a sidebar... probably a list 
+      not links 
+      -->
+
+
+
+      
+
+        <!-- Alreade created Sportplans -->
+        <!-- Button to add new sportplan ?  -->
+
+
+      </div>
+
+
+        <div class="rightPane">
+
+            <!-- LOGIN -->
+            <form v-if="!loggedIn" class="form-login" @submit.prevent="authentificateLogin">
+              <div class="loginInputGroup">
+                <label for="username">Name:</label>
+                <input v-model="inputUsername" type="text" id="username" name="username" placeholder="Enter your name" required>
+              </div>
+              <div class="loginInputGroup">
+                <label for="password">Password:</label>
+                <input v-model="inputPassword" type="password" id="password" name="password" placeholder="Enter your password" required>
+              </div>
+              <button type="submit" class="btn-login">Login</button>
+              <button type="button" class="btn-register">Register</button>
+            </form>
+
+
+
+            <!-- NO Sportplan Selected or Create Sportsplan -->
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+      <!-- SECTION: My Sportplans -->
+
+
+
+<!-- 
+      <details class="section section-sportplans">
+        <summary><h2>My Sportplans</h2></summary> -->
+        <!-- <section id="my-sportplans">
+          <p class="note-login-required">(This section would be greyed out if you are not logged in.)</p>
+          <details class="sportplan-entry">
+            <summary>Leg Day Blast</summary>
+            <table class="sportplan-table">
               <thead>
                 <tr>
                   <th>Exercise</th>
@@ -138,57 +121,237 @@
                   <th>Sets</th>
                   <th>Weight</th>
                   <th>Duration</th>
-                  <th>Add</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Squats</td>
-                  <td><input type="number" name="squats-reps" placeholder="e.g. 10"></td>
-                  <td><input type="number" name="squats-sets" placeholder="e.g. 3"></td>
-                  <td><input type="number" name="squats-weight" placeholder="e.g. 50"></td>
-                  <td><input type="text" name="squats-duration" placeholder="e.g. 30 sec"></td>
-                  <td><button type="button" class="btn-add">Add</button></td>
+                  <td>10</td>
+                  <td>3</td>
+                  <td>–</td>
+                  <td>30 sec</td>
                 </tr>
                 <tr>
-                  <td>Deadlifts</td>
-                  <td><input type="number" name="deadlifts-reps" placeholder="e.g. 8"></td>
-                  <td><input type="number" name="deadlifts-sets" placeholder="e.g. 3"></td>
-                  <td><input type="number" name="deadlifts-weight" placeholder="e.g. 50"></td>
-                  <td><input type="text" name="deadlifts-duration" placeholder="e.g. -"></td>
-                  <td><button type="button" class="btn-add">Add</button></td>
-                </tr>
-                <tr>
-                  <td>Push-Ups</td>
-                  <td><input type="number" name="pushups-reps" placeholder="e.g. 12"></td>
-                  <td><input type="number" name="pushups-sets" placeholder="e.g. 3"></td>
-                  <td><input type="number" name="pushups-weight" placeholder="Bodyweight"></td>
-                  <td><input type="text" name="pushups-duration" placeholder="e.g. -"></td>
-                  <td><button type="button" class="btn-add">Add</button></td>
+                  <td>Lunges</td>
+                  <td>12</td>
+                  <td>3</td>
+                  <td>–</td>
+                  <td>30 sec</td>
                 </tr>
               </tbody>
             </table>
-          </fieldset>
+            <p><a href="sportplan-leg-day-blast.html">View full Sportplan</a></p>
+          </details>
+          <details class="sportplan-entry">
+            <summary>Cardio Burner</summary>
+            <table class="sportplan-table">
+              <thead>
+                <tr>
+                  <th>Exercise</th>
+                  <th>Reps</th>
+                  <th>Sets</th>
+                  <th>Weight</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Jumping Jacks</td>
+                  <td>30</td>
+                  <td>3</td>
+                  <td>–</td>
+                  <td>60 sec</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><a href="sportplan-cardio-burner.html">View full Sportplan</a></p>
+          </details>
+        </section> -->
+      <!-- </details> -->
 
-          <fieldset id="selected-exercises" class="selected-exercises" style="display: none;">
-            <legend>Selected Exercises</legend>
-            <div class="exercise-tile-container">
-              <div class="exercise-tile" draggable="true">
-                Push-Ups
-                <button class="remove-btn js-remove" title="Remove">×</button>
-              </div>
+
+      <!-- SECTION: Create New Sportplan -->
+      <!-- <details class="section section-create">
+        <summary><h2>Create New Sportplan</h2></summary> -->
+        <!-- <section id="create-sportplan">
+          <form class="form-create-plan">
+            <div>
+              <label for="sportplan-name">Sportplan Name:</label>
+              <input type="text" id="sportplan-name" name="sportplan-name" placeholder="Name your plan" required>
             </div>
-          </fieldset>
+            <div>
+              <label for="exercise-search">Search Exercises:</label>
+              <input type="search" id="exercise-search" name="exercise-search" placeholder="Type to search...">
+            </div>
+            <div>
+              <label for="filter-category">Filter by Category:</label>
+              <select id="filter-category" name="filter-category">
+                <option value="">All Categories</option>
+                <option>Legs</option>
+                <option>Arms</option>
+                <option>Cardio</option>
+              </select>
+            </div>
+            <fieldset class="available-exercises">
+              <legend>Available Exercises</legend>
+              <table class="exercise-table responsive">
+                <thead>
+                  <tr>
+                    <th>Exercise</th>
+                    <th>Reps</th>
+                    <th>Sets</th>
+                    <th>Weight</th>
+                    <th>Duration</th>
+                    <th>Add</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Squats</td>
+                    <td><input type="number" name="squats-reps" placeholder="e.g. 10"></td>
+                    <td><input type="number" name="squats-sets" placeholder="e.g. 3"></td>
+                    <td><input type="number" name="squats-weight" placeholder="e.g. 50"></td>
+                    <td><input type="text" name="squats-duration" placeholder="e.g. 30 sec"></td>
+                    <td><button type="button" class="btn-add">Add</button></td>
+                  </tr>
+                  <tr>
+                    <td>Deadlifts</td>
+                    <td><input type="number" name="deadlifts-reps" placeholder="e.g. 8"></td>
+                    <td><input type="number" name="deadlifts-sets" placeholder="e.g. 3"></td>
+                    <td><input type="number" name="deadlifts-weight" placeholder="e.g. 50"></td>
+                    <td><input type="text" name="deadlifts-duration" placeholder="e.g. -"></td>
+                    <td><button type="button" class="btn-add">Add</button></td>
+                  </tr>
+                  <tr>
+                    <td>Push-Ups</td>
+                    <td><input type="number" name="pushups-reps" placeholder="e.g. 12"></td>
+                    <td><input type="number" name="pushups-sets" placeholder="e.g. 3"></td>
+                    <td><input type="number" name="pushups-weight" placeholder="Bodyweight"></td>
+                    <td><input type="text" name="pushups-duration" placeholder="e.g. -"></td>
+                    <td><button type="button" class="btn-add">Add</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </fieldset>
+            <fieldset id="selected-exercises" class="selected-exercises" style="display: none;">
+              <legend>Selected Exercises</legend>
+              <div class="exercise-tile-container">
+                <div class="exercise-tile" draggable="true">
+                  Push-Ups
+                  <button class="remove-btn js-remove" title="Remove">×</button>
+                </div>
+              </div>
+            </fieldset>
+            <button type="button" class="btn-create">Create Sportplan</button>
+          </form>
+        </section> -->
+      <!-- </details> -->
 
-          <button type="button" class="btn-create">Create Sportplan</button>
-        </form>
-      </section>
-    </details>
-  </main>
+
+
+
+    </main>
+  </div>
 
   <footer class="footer">
     <p>&copy; 2025 Sportsplanner User View</p>
   </footer>
 
+
+  <script>
+
+  function createEmptySportsplan() 
+  {
+    return{
+      id: null,
+      sportsplanName: "",
+      excercises: []
+    };
+  }
+
+
+
+// VUE:
+    const { createApp } = Vue;
+  
+    createApp({
+      data() {
+        return {
+          loggedIn: false,
+          inputUsername: '',
+          inputPassword: '',
+          
+
+
+          user:[
+            {
+              id: 0,
+              username: "admin",
+              password: "password"
+            }
+
+          ],
+
+
+          sportplan:[
+            { 
+              id: null,
+              sportsplanName: "test",
+              excercises: []
+            }
+          ]
+
+
+
+        }
+      },
+      methods: {
+
+
+        // State: Not Logged in //////////////////////////////
+
+        // When Login Button Clicked
+        authentificateLogin()
+        {
+          // TODO: temporary admin login only 
+          if (this.inputUsername === 'admin' && this.inputPassword === 'password') 
+          {
+            this.loggedIn = true;
+          }
+          alert("it worked")
+        },
+
+
+
+
+        // When clicking Register
+        registerNewUser()
+        {
+
+        }
+
+
+
+        //////////////////////////////
+
+
+
+
+
+
+
+
+
+
+      }
+    }).mount('#app');
+  </script>
 </body>
 </html>
+
+
+<!-- WORKPENDING: -->
+<!-- design rehaul -->
+ <!--overhaul login register form -> Josh Cameau   -->
+<!-- make vue interactive -->
+ <!-- PENPOT design -->

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sportsplanner Admin View</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styleAdmin.css">
   <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.5.1/dist/tailwind.min.css" rel="stylesheet" type="text/css" /> -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
@@ -12,143 +12,161 @@
 <body>
 
   <div id="app">
-    <header class="header">
-      <h1>Sportsplanner Admin View</h1>
-      <nav class="nav">
-        <button id="hamburger-icon">☰</button>
-        <ul class="nav-list">
-          <li><a href="#add-category" class="nav-link">Add Category</a></li>
-          <li><a href="#add-exercise" class="nav-link">Add Exercise</a></li>
-          <li><a href="#all-exercises" class="nav-link">View Exercises</a></li>
-          <li><a href="#all-categories" class="nav-link">View Categories</a></li>
-        </ul>
-      </nav>
-    </header>
+
+    
+    <div class="headcolor">
+      <header class="header">
+        <h1>░▐█▀█░Sportsplanner</h1>
+        <nav class="nav">
+          <ul class="nav-list">
+            <button id="hamburger-icon" style="color: whitesmoke;">☰</button>
+            <li><a href="#"   @click="toggleVisAddCategory"  :class="['nav-link', { 'hidden-nav-link': !addCatViewToggle }]">Add Category</a></li>
+            <li><a href="#"   @click="toggleVisAddExcercise" :class="{'hidden-nav-link': !addExcViewToggle}" class="nav-link">Add Exercise</a></li>
+            <li><a href="#"  @click="toggleVisAllExc"        :class="{'hidden-nav-link': !viewExcToggle}" class="nav-link">View Exercises</a></li>
+            <li><a href="#" @click="toggleVisAllCat"         :class="{'hidden-nav-link': !viewCatToggle}" class="nav-link">View Categories</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+
+
     <main class="main">
 
          <!-- SECTION: INPUT -->
          <!-- SUBSECTION:  Add/Update Category-->
-      <section id="add-category" class="section section-add-category">
-        <h2 id="addNewCatSection">{{isEditingCategory ? 'Edit Category' : 'Add New Category' }}</h2>
-        <p>Create or describe a new exercise category, such as “Legs,” “Cardio,” or “Core.”</p>
-        <form class="form-add-category" @submit.prevent="addOrUpdateCategory">
-          <div>
-            <input type="hidden" v-model="currentCategory.id">
-            <label for="category-name">Category Name:</label>         
-            <input type="text" id="category-name" name="category-name" v-model="currentCategory.categoryName" placeholder="e.g. Legs, Cardio" required>
-          </div>
-          <div>
-            <label for="category-description">Description:</label>
-            <textarea id="category-description" name="category-description" v-model="currentCategory.description" rows="3" placeholder="Short description..."></textarea>
-          </div>
-          <div>
-            <label for="category-exercises">Associate Existing Exercises:</label>
-            <select id="category-exercises"
-                  name="category-exercises"
-                  multiple
-                  v-model="currentCategory.associatedExercises">
-            <option
-              v-for="exercise in exercises"
-              :key="exercise.id"
-              :value="exercise.id">
-              {{ exercise.name }}
-            </option>
-          </select>
-          </div>
-          <button type="button" class="btn-create-category" @click="addOrUpdateCategory">{{isEditingCategory? "Update" : "Create Category"}}</button>
-          <button type="button" v-if="isEditingCategory" @click="cancelEditCategory">
-            Cancel Edit
-          </button>
-        </form>
-      </section>
+      <div class="input">
 
-          <!-- SUBSECTION:  Add/Update Excercise-->
-      <section id="add-exercise" class="section section-add-exercise">
-        <h2 id="addNewExcSection">{{isEditingExcercise ? 'Edit Excercise' : 'Add New Excercise' }}</h2>
-        <p>Define a new exercise with its basic details.</p>
-        <form class="form-add-exercise" @submit.prevent="addOrUpdateExcercise">
-          <div>
-            <input type="hidden" v-model="currentExcercise.id">
-            <label for="exercise-name">Exercise Name:</label>
-            <input type="text" id="exercise-name" name="exercise-name" v-model="currentExcercise.name" placeholder="e.g. Push-Ups" required>
-          </div>
-          <div>
-            <label for="exercise-description">Description:</label>
-            <textarea id="exercise-description" name="exercise-description" v-model="currentExcercise.description" rows="3" placeholder="Tips, form cues, etc."></textarea>
-          </div>
-          <div>
-            <label for="exercise-image">Image URL:</label>
-            <input type="url" id="exercise-image" name="exercise-image" v-model="currentExcercise.image" placeholder="http://example.com/image.jpg">
-          </div>
-          <div>
-            <label for="exercise-categories">Select Categories:</label>
+        <div v-if="!addCatViewToggle && !addExcViewToggle && !viewExcToggle && !viewCatToggle">
+          <p style="text-align:center; font-style:italic; opacity:0.6;">No sections are currently visible.</p>
+        </div>
 
-          <select id="exercise-categories"
-              name="exercise-categories"
-              multiple
-              v-model="currentExcercise.categories">
-              <!-- :key internal item identification vor vDOM manipulation by VUE -->
-              <!-- :value =   is what is getting saved into v-model (.categories) -->
-            <option 
-              v-for="category in categories"
-              :key="category.id"
-              :value="category.id">
-              {{ category.categoryName }}
-            </option>
-          </select>
+        <section v-if="addCatViewToggle" id="add-category" class="section section-add-category" :class="{'editing-active': isEditingCategory}">
 
+          <h2 id="addNewCatSection">{{isEditingCategory ? 'Edit Category' : 'Add New Category' }}</h2>
+          <p class="descriptionText">Define a new category.</p>
+          <form class="form-add-category" @submit.prevent="addOrUpdateCategory">
+            <div>
+              <input type="hidden" v-model="currentCategory.id">
+              <label for="category-name">Category Name:</label>
+              <input type="text" id="category-name" name="category-name" v-model="currentCategory.categoryName" placeholder="e.g. Legs, Cardio" required>
+            </div>
+            <div>
+              <label for="category-description">Description:</label>
+              <textarea id="category-description" name="category-description" v-model="currentCategory.description" rows="3" placeholder="Short description..."></textarea>
+            </div>
+            <div>
+              <label for="category-exercises">Associate Existing Exercises:</label>
+              <select id="category-exercises"
+                    name="category-exercises"
+                    multiple
+                    v-model="selectedExercises">
+              <option
+                v-for="exercise in exercises"
+                :key="exercise.id"
+                :value="exercise.id">
+                {{ exercise.name }}
+              </option>
+            </select>
+            </div>
+            <button type="button" class="inbutton btn-create-category" @click="addOrUpdateCategory">{{isEditingCategory? "Update" : "Create Category"}}</button>
+            <button type="button" class="inbutton cancel-category" v-if="isEditingCategory" @click="cancelEditCategory">
+              Cancel Edit
+            </button>
+          </form>
+
+        </section>
+            <!-- SUBSECTION:  Add/Update Excercise-->
+        <section v-if="addExcViewToggle" id="add-exercise" class="section section-add-exercise" :class="{'editing-active': isEditingExcercise}">
+          <h2 id="addNewExcSection">{{isEditingExcercise ? 'Edit Excercise' : 'Add New Excercise' }}</h2>
+          <p class="descriptionText">Define a new exercise.</p>
+          <form class="form-add-exercise" @submit.prevent="addOrUpdateExcercise">
+            <div>
+              <input type="hidden" v-model="currentExcercise.id">
+              <label for="exercise-name">Exercise Name:</label>
+              <input type="text" id="exercise-name" name="exercise-name" v-model="currentExcercise.name" placeholder="e.g. Push-Ups" required>
+            </div>
+            <div>
+              <label for="exercise-description">Description:</label>
+              <textarea id="exercise-description" name="exercise-description" v-model="currentExcercise.description" rows="3" placeholder="Short description..."></textarea>
+            </div>
+            <!-- <div>
+              <label for="exercise-image">Image URL:</label>
+              <input type="url" id="exercise-image" name="exercise-image" v-model="currentExcercise.image" placeholder="http://example.com/image.jpg">
+            </div> -->
+            <div>
+              <label for="exercise-categories">Select Categories:</label>
+            <select id="exercise-categories"
+                name="exercise-categories"
+                multiple
+                v-model="currentExcercise.categories">
+                <!-- :key internal item identification vor vDOM manipulation by VUE -->
+                <!-- :value =   is what is getting saved into v-model (.categories) -->
+              <option
+                v-for="category in categories"
+                :key="category.id"
+                :value="category.id">
+                {{ category.categoryName }}
+              </option>
+            </select>
+      </div>
+            <button type="button" class="inbutton btn-create-exercise" @click="addOrUpdateExcercise">{{isEditingExcercise? "Update" : "Create Excercise"}}</button>
+            <button type="button" class="inbutton cancel-excercise" v-if="isEditingExcercise" @click="cancelEditExcercise">Cancel Edit</button>
           </div>
-          <button type="button" class="btn-create-exercise" @click="addOrUpdateExcercise">{{isEditingExcercise? "Update" : "Create Excercise"}}</button>
-          <button type="button" v-if="isEditingExcercise" @click="cancelEditExcercise">Cancel Edit</button>
+  
 
         </form>
       </section>
 
         <!-- SECTION: OUTPUT -->
         <!-- SUBSECTION: ALL EXCERCISES -->
-      <section id="all-exercises" class="section section-all-exercises" v-if="exercises.length">
-        <h2>All Exercises</h2>
-        <table class="exercise-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Image</th>
-              <th>Categories</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="exercise in exercises">
-              <td>{{exercise.name}}</td>
-              <td>{{exercise.description}}</td>
-              <td><img src="http://example.com/squats.jpg" alt="Image" width="60" height="40"></td>
-              <td>{{publishedCategoryNamesPerExcercise[exercise.id]}}</td>
-              <td><a href="#" @click.prevent="startEditExcercise(exercise)">Edit</a> | 
-                <a href="#" @click.prevent="deleteExcercise(exercise.id)">Delete</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+      <div class="output">
+        <section v-if="viewExcToggle" id="all-exercises" class="section section-all-exercises" v-if="exercises.length">
+          <h2>All Exercises</h2>
+          <table class="exercise-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <!-- <th>Image</th> -->
+                <th>Categories</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="exercise in exercises">
+                <td>{{exercise.name}}</td>
+                <td>{{exercise.description}}</td>
+                <!-- <td><img src="http://example.com/squats.jpg" alt="Image" width="60" height="40"></td> -->
+                <td>{{publishedCategoryNamesPerExcercise[exercise.id]}}</td>
+                <td><a href="#" @click.prevent="startEditExcercise(exercise)">Edit</a> |
+                  <a href="#" @click.prevent="deleteExcercise(exercise.id)">Delete</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+          <!-- SUBSECTION: ALL CATEGORIES -->
+        <section v-if="viewCatToggle" id="all-categories" class="section section-all-categories">
+          <h2>All Categories</h2>
+          <div class="categoryCard" v-for="category in categories">
+            <article class="category-card">
+              <h3>{{category.categoryName}}</h3>
+              <p>{{category.description}}</p>
+              <p>{{publishedExcercisesPerCategory[category.id]}}</p>
+              <a href="#" @click.prevent="startEditCategory(category)">Edit</a> |
+              <a href="#" @click.prevent="deleteCategory(category.id)">Delete</a></p>
+            </article>
+          </div>
+        </section>
+      </div>
 
 
-        <!-- SUBSECTION: ALL CATEGORIES -->
-      <section id="all-categories" class="section section-all-categories">     
-        <h2>All Categories</h2>
 
-        <div v-for="category in categories">
-          <article class="category-card">
-            <h3>{{category.categoryName}}</h3>
-            <p>{{category.description}}</p>
-            <p>{{publishedExcercisesPerCategory[category.id]}}</p>
-            <a href="#" @click.prevent="startEditCategory(category)">Edit</a> | 
-            <a href="#" @click.prevent="deleteCategory(category.id)">Delete</a></p>
-          </article>
-        </div>
-      </section>
     </main>
+
+
     <footer class="footer">
-      <p>&copy; 2025 Sportsplanner Admin Panel</p>
+      <p>&copy; 2025 Sportsplanner Admin Panel | Bogdan Breiner</p>
     </footer>
   </div>
 
@@ -161,8 +179,7 @@
       return{
               id: null,
               categoryName: "",
-              description: '',
-              associatedExercises: []
+              description: ""
       };
     }
     function createEmptyExcercise() 
@@ -171,7 +188,7 @@
           id: null,
           name: "",
           description: '',
-          image: '',
+          // image: '',
           categories: [],
         };
     }
@@ -190,32 +207,38 @@
           isEditingExcercise: false,
           isEditingCategory: false,
 
+
+
+          //Visbility Toggles from header
+          addCatViewToggle: true,
+          addExcViewToggle: true,
+          viewExcToggle: true,
+          viewCatToggle: true,
+
+
+
           currentCategory: createEmptyCategory(),
           currentExcercise: createEmptyExcercise(),
-
-
+          selectedExercises: [],
 
 
 
           //DUMMY DATA 
           categories: [
-          {
+          { 
             id: 42,
             categoryName: "Legs",
             description: "Exercise that trains the legs or lower body",
-            associatedExercises: [1, 2]
           },
           {
             id: 43,
             categoryName: "Arms",
             description: "Upper body strength exercises",
-            associatedExercises: []
           },
           {
             id: 44,
             categoryName: "Cardio",
             description: "Exercises that boost heart rate and endurance",
-            associatedExercises: [5]
           }
         ],
         exercises: [
@@ -223,21 +246,21 @@
             id: 1,
             name: 'Squats',
             description: 'A lower body exercise focusing on quads and glutes.',
-            image: 'http://example.com/squats.jpg',
+            // image: 'http://example.com/squats.jpg',
             categories: [42] // IDs
           },
           {
             id: 2,
             name: 'Deadlifts',
             description: 'Full-body movement with focus on posterior chain.',
-            image: 'http://example.com/deadlifts.jpg',
+            // image: 'http://example.com/deadlifts.jpg',
             categories: [42]
           },
           {
             id: 5,
             name: 'Running',
             description: 'Cardiovascular exercise for endurance and stamina.',
-            image: 'http://example.com/running.jpg',
+            // image: 'http://example.com/running.jpg',
             categories: [44]
           }
         ]
@@ -245,7 +268,28 @@
       },
       methods:{
 
-    
+      toggleVisAddCategory() 
+      {
+        this.addCatViewToggle = !this.addCatViewToggle;
+        this.resetExcerciseForm();
+      },
+      toggleVisAddExcercise() 
+      {
+        this.addExcViewToggle = !this.addExcViewToggle;
+        this.resetCategoryForm();
+      },
+      toggleVisAllExc() 
+      {
+        this.viewExcToggle = !this.viewExcToggle;
+      },
+      toggleVisAllCat() 
+      {
+        this.viewCatToggle = !this.viewCatToggle;
+      },
+
+
+
+
       addOrUpdateExcercise()
       {
         if (!this.currentExcercise.name)  // just enforces the need of a name
@@ -283,32 +327,61 @@
         this.isEditingExcercise = false;
       },
 
+
       addOrUpdateCategory() 
       {
-        if (!this.currentCategory.categoryName)  // just enforces the need of a name
+        if (!this.currentCategory.categoryName) 
         {
           alert('Please fill in a category name.');
           return;
         }
 
         if (this.isEditingCategory) {
-          // If editing, find the existing category by ID and replace it
+          // Update existing category by ID
           const index = this.categories.findIndex(cat => cat.id === this.currentCategory.id);
           if (index !== -1) 
           {
             this.categories.splice(index, 1, { ...this.currentCategory });
           }
-        } 
-        else 
+        } else 
         {
-          // If adding new, create a new category with a new ID
-          const newCategory = {
-            ...this.currentCategory,  //deconstruct and copy contents and references
-            id: this.generateCategoryId()  // overwrite null ID with brandnew one 
+          // Create new category
+          const newCategory = 
+          {
+            ...this.currentCategory,
+            id: this.generateCategoryId()
           };
           this.categories.push(newCategory);
+          this.currentCategory.id = newCategory.id; // ensure ID exists before syncing
         }
 
+          //Sync exercise.categories based on selectedExercises
+        for (const exercise of this.exercises) 
+        {
+          //selected excercises =   = array of exercise IDs selected *for the current category*
+
+          // Check if this exercise is currently selected (i.e., should belong to the current category)
+          const isSelected = this.selectedExercises.includes(exercise.id);
+
+          //Does this exercise already list this category
+          const hasCategory = exercise.categories.includes(this.currentCategory.id);
+
+          //Add the category if it was selected but not yet present.
+          if (isSelected && !hasCategory) 
+          {
+            exercise.categories.push(this.currentCategory.id);
+          }
+
+          // Remove the category from this exercise if it was *not* selected anymore but is still present
+          if (!isSelected && hasCategory) 
+          { //filters all 
+            exercise.categories = exercise.categories.filter(
+              id => id !== this.currentCategory.id
+            );
+          }
+        }
+
+        // Reset form and helper
         this.resetCategoryForm();
       },
 
@@ -317,6 +390,7 @@
       {
         this.currentCategory = createEmptyCategory();
         this.isEditingCategory = false;
+        this.selectedExercises = [];
       },
 
 
@@ -342,10 +416,19 @@
 
      startEditExcercise(excercise)
     {
+      //mutual exclusive editing
+      if(this.isEditingCategory)
+      {
+        alert("Finish editing the Category first ;-)")
+        return;
+      }
+
+
+
       this.currentExcercise = {...excercise, categories: [...excercise.categories]};
       console.log('Started editing:', excercise.name);
       this.isEditingExcercise = true;
-      document.getElementById('addNewExcSection').scrollIntoView();
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     },
 
 
@@ -361,12 +444,25 @@
 
     startEditCategory(category) 
     {
-        // Important: Create a *copy* of the dish object for editing
+      if(this.isEditingExcercise)
+      {
+        alert("Finish editing the Excercise first ;-)")
+        return;
+      }
+
+
+
+        // Important: Create a *copy* of the category object for editing
         // to avoid modifying the list directly via v-model before saving.
-        this.currentCategory = {...category, associatedExercises: [...category.associatedExercises]};
-        console.log('Started editing:', category.name);
+        this.currentCategory = {...category};
         this.isEditingCategory = true;
-        document.getElementById('addNewCatSection').scrollIntoView();
+
+        //load all associated excercises with category into selectedExercises as excerciseIDs
+        this.selectedExercises = this.exercises
+        .filter(e => e.categories.includes(category.id))
+        .map(e => e.id);
+
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     },
 
 
@@ -398,15 +494,32 @@
       },
       computed:{
 
+      
+      // publishedHeadingText()
+      // {
+      //   if(!addCatViewToggle && !addExcViewToggle)
+
+
+      // }
+
+
         // categories that belong to a EXCERCISE  (example plank can be  CORE and Stability)
       publishedCategoryNamesPerExcercise() 
       {
         const map = {};
         for (const exercise of this.exercises) 
         {
-          const catNames = exercise.categories
-            .map(id => this.getCategoryById(id)?.categoryName || 'Unknown')
-            .join(", ");
+          let catNames;
+          if(exercise.categories.length)
+          {
+            catNames = exercise.categories
+                        .map(id => this.getCategoryById(id).categoryName)
+                        .join(", ");
+          }
+          else
+          {
+            catNames = "Not Assigned"
+          }
           map[exercise.id] = catNames;
         }
         return map;
@@ -414,31 +527,22 @@
 
 
       // the excercies that belong to a CATEGORY  
-      publishedExcercisesPerCategory()
+      publishedExcercisesPerCategory() 
       {
       const map = {};
-      for(const cat of this.categories)
+      for (const cat of this.categories) 
       {
-        let excNames = cat.associatedExercises //holds exercise IDs 
-        .map(id => this.getExerciseById(id)?.name || 'Unknown')
-        .join(", ");
+        const names = this.exercises
+          .filter(e => e.categories.includes(cat.id))
+          .map(e => e.name);
 
-        //Save the final string (excNames) into map.
-        //Use the category's ID (cat.id) as the key.
-
-        if(excNames === "")
-        {
-          excNames = "No Exercises";
-        }
-        else
-        {
-          excNames = "Excercises: " + excNames;
-        }
-
-        map[cat.id] = excNames;
+        map[cat.id] = names.length
+          ? "Exercises: " + names.join(", ")
+          : "No Exercises";
       }
-      return map;
+        return map;
       }
+
       },
       mounted(){
       }
@@ -447,3 +551,10 @@
 
 </body>
 </html>
+
+
+<!-- TODO:   -->
+  <!-- Make functional hamburger (see kommilitonen html) -->
+   <!-- Make template SVGs that cna be used as images within Categories  -->
+    <!-- STyle Edit and delete Buttons in a more modern fashiopn  -->
+  <!--  -->

@@ -24,9 +24,7 @@
     padding: 0;
   }
 
-   *{
-    border: 1px solid yellowgreen;
-  }
+
   
   body {
     background-color: var(--bg-main);
@@ -52,7 +50,7 @@
   }
 
   .rightPane{
-    flex: 1;
+    flex: 6;
     display: flex;
     flex-direction: column;
     /* align-items: center;
@@ -62,14 +60,17 @@
 
 
 
+/* sportsplan list stylings */
+ul{
+  list-style-type:none;
+  
+}
 
-
-
-
-
-
-
-
+.sportplan-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 
 
@@ -127,6 +128,7 @@
   margin: 8px;
   border-right: var(--text-muted);
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
 }
 
@@ -135,9 +137,6 @@
   flex-direction: row;
 }
 
-.leftPane-header{
-  display: flex;
-}
 
 /* .leftPane h2{
   border: 1px solid white;
@@ -146,11 +145,63 @@
  */
 
 
+ .sportplan-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: var(--bg-section);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: var(--font-main);
+  color: var(--text-main);
+}
+
+.sportplan-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s ease;
+  color: var(--text-muted);
+}
+
+.sportplan-item:hover {
+  background-color: var(--bg-main);
+  color: var(--accent-hover);
+}
+
+.sportplan-item.selected {
+  background-color: var(--accent);
+  color: var(--bg-main);
+  font-weight: bold;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* CENTERPROMPT */
 
 
+.centerprompt{
+  background-color: #1c2430;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: auto;
+}
 
-
-
+.centerprompt button{
+  background-color: greenyellow;
+}
 
 
 
@@ -201,3 +252,176 @@
     color: var(--accent);
   }
   
+
+
+
+.inputEditPane{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  margin: auto;
+  
+}
+
+
+
+/* *{
+  border: 1px solid yellowgreen;
+} */
+
+
+
+/* excercise controls */
+.exercise-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--bg-section);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  max-width: 400px;
+  font-family: var(--font-main);
+  color: var(--text-main);
+}
+
+/* Inputs & select dropdown */
+.exercise-controls input[type="search"],
+.exercise-controls select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-main);
+  font-family: var(--font-main);
+}
+
+/* List container */
+.exercise-select-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  background: var(--bg-main);
+}
+
+/* List items */
+.exercise-item {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s ease;
+  color: var(--text-muted);
+}
+
+.exercise-item:hover {
+  background-color: var(--bg-section);
+  color: var(--accent-hover);
+}
+
+/* Selected item */
+.exercise-item.selected {
+  background-color: var(--accent);
+  color: var(--bg-main);
+  font-weight: bold;
+}
+
+
+/* INPUT EDIT */
+
+.inputEditPane section#create-sportplan {
+  background-color: var(--bg-section);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.2rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-main);
+  color: var(--text-main);
+}
+
+.form-create-plan input[type="text"],
+.form-create-plan input[type="number"],
+.form-create-plan input[type="search"],
+.form-create-plan textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  background-color: var(--input-bg);
+  color: var(--text-main);
+  font-family: var(--font-main);
+}
+
+.available-exercises legend,
+.selected-exercises legend {
+  font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.exercise-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.exercise-table th,
+.exercise-table td {
+  padding: 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.btn-add,
+.btn-create,
+.remove-btn {
+  background-color: var(--accent);
+  border: none;
+  color: var(--bg-main);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-main);
+}
+
+.btn-add:hover,
+.btn-create:hover,
+.remove-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+.selected-exercises {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--bg-main);
+  border: 1px dashed var(--accent);
+  border-radius: 6px;
+  color: var(--text-muted);
+}
+
+.exercise-tile-container {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.exercise-tile {
+  background-color: var(--bg-section);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--border);
+}

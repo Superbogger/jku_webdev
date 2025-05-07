@@ -38,23 +38,35 @@
       <div class="leftPane-header">
         <h2>Sportplans</h2>
         
-        <div> &lt; </div>
+
       </div>
 
-      <div class="sportsplan">
-        <h3 class="sportsPlanTitle">Monday</h3>
-        <button>X</button>
-      </div>
-      <!-- 
-      WORKPENDING:
-      REFACTOR:
-      decide what would work best for a sidebar... probably a list 
-      not links 
-      -->
+      <ul class="sportplan-list">
+
+        <li class="sportplan-item">
+          Leg Day Blast
+          <button class="delete-btn" title="Delete">🗑</button>
+        </li>
+
+        <li class="sportplan-item selected">
+          Cardio Burner
+          <button class="delete-btn" title="Delete">🗑</button>
+        </li>
+        
+        <li class="sportplan-item">
+          Push Workout
+          <button class="delete-btn" title="Delete">🗑</button>
+        </li>
+
+      </ul>
 
 
 
-      
+
+
+
+
+
 
         <!-- Alreade created Sportplans -->
         <!-- Button to add new sportplan ?  -->
@@ -81,23 +93,105 @@
 
 
 
-            <!-- NO Sportplan Selected or Create Sportsplan -->
-    
+            <!-- LOGGED IN  NONE SELECTED  -->
+            <div v-if="!isSelected" class="centerprompt">
+              <input type="text"></input>
+              <button @click="createPlan">Create new</button>
+            </div>
 
 
 
+            <!-- LOGGED IN  SELECTED  OR CREATING-NEW -->
+            <div class="inputEditPane">
+            
 
+             <section id="create-sportplan">
+              <form class="form-create-plan">
+                <div>
+                  <label for="sportplan-name">Sportplan Name:</label>
+                  <input type="text" id="sportplan-name" name="sportplan-name" placeholder="Name your plan" required>
+                </div>
 
+                <fieldset class="available-exercises">
+                  <legend>Selected Excercises</legend>
+                  <table class="exercise-table responsive">
+                    <thead>
+                      <tr>
+                        <th>Exercise</th>
+                        <th>Reps</th>
+                        <th>Sets</th>
+                        <th>Weight</th>
+                        <th>Duration</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Squats</td>
+                        <td><input type="number" name="squats-reps" placeholder="e.g. 10"></td>
+                        <td><input type="number" name="squats-sets" placeholder="e.g. 3"></td>
+                        <td><input type="number" name="squats-weight" placeholder="e.g. 50"></td>
+                        <td><input type="text" name="squats-duration" placeholder="e.g. 30 sec"></td>
+                        <td><button type="button" class="btn-add">X</button></td>
+                      </tr>
+                      <tr>
+                        <td>Deadlifts</td>
+                        <td><input type="number" name="deadlifts-reps" placeholder="e.g. 8"></td>
+                        <td><input type="number" name="deadlifts-sets" placeholder="e.g. 3"></td>
+                        <td><input type="number" name="deadlifts-weight" placeholder="e.g. 50"></td>
+                        <td><input type="text" name="deadlifts-duration" placeholder="e.g. -"></td>
+                        <td><button type="button" class="btn-add">X</button></td>
+                      </tr>
+                      <tr>
+                        <td>Push-Ups</td>
+                        <td><input type="number" name="pushups-reps" placeholder="e.g. 12"></td>
+                        <td><input type="number" name="pushups-sets" placeholder="e.g. 3"></td>
+                        <td><input type="number" name="pushups-weight" placeholder="Bodyweight"></td>
+                        <td><input type="text" name="pushups-duration" placeholder="e.g. -"></td>
+                        <td><button type="button" class="btn-add">X</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </fieldset>
 
+                <fieldset id="selected-exercises" class="selected-exercises" style="display: none;">
+                  <legend>Selected Exercises</legend>
+                  <div class="exercise-tile-container">
+                    <div class="exercise-tile" draggable="true">
+                      Push-Ups
+                      <button class="remove-btn js-remove" title="Remove">×</button>
+                    </div>
+                  </div>
+                </fieldset>
 
-
-
-
-
-
-
-
-
+                <button type="button" class="btn-create">Save</button>
+              </form>
+            </section>
+            
+            <section class="exercise-controls">   
+              <label for="exercise-search">Search Exercise:</label>
+              <input type="search" id="exercise-search" placeholder="Type to search...">
+            
+              <label for="category-filter">Filter by Category:</label>
+              <select id="category-filter">
+                <option value="">All Categories</option>
+                <option value="legs">Legs</option>
+                <option value="arms">Arms</option>
+                <option value="cardio">Cardio</option>
+              </select>
+            
+              <ul class="exercise-select-list">
+                <li class="exercise-item">Squats</li>
+                <li class="exercise-item">Deadlifts</li>
+                <li class="exercise-item">Push-Ups</li>
+                <li class="exercise-item">Burpees</li>
+                <li class="exercise-item">Lunges</li>
+              </ul>
+            </section>
+            
+            <!-- inputEditPane -->
+            </div> 
+        <!-- rightPane -->
         </div>
 
 
@@ -109,143 +203,15 @@
 <!-- 
       <details class="section section-sportplans">
         <summary><h2>My Sportplans</h2></summary> -->
-        <!-- <section id="my-sportplans">
-          <p class="note-login-required">(This section would be greyed out if you are not logged in.)</p>
-          <details class="sportplan-entry">
-            <summary>Leg Day Blast</summary>
-            <table class="sportplan-table">
-              <thead>
-                <tr>
-                  <th>Exercise</th>
-                  <th>Reps</th>
-                  <th>Sets</th>
-                  <th>Weight</th>
-                  <th>Duration</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Squats</td>
-                  <td>10</td>
-                  <td>3</td>
-                  <td>–</td>
-                  <td>30 sec</td>
-                </tr>
-                <tr>
-                  <td>Lunges</td>
-                  <td>12</td>
-                  <td>3</td>
-                  <td>–</td>
-                  <td>30 sec</td>
-                </tr>
-              </tbody>
-            </table>
-            <p><a href="sportplan-leg-day-blast.html">View full Sportplan</a></p>
-          </details>
-          <details class="sportplan-entry">
-            <summary>Cardio Burner</summary>
-            <table class="sportplan-table">
-              <thead>
-                <tr>
-                  <th>Exercise</th>
-                  <th>Reps</th>
-                  <th>Sets</th>
-                  <th>Weight</th>
-                  <th>Duration</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Jumping Jacks</td>
-                  <td>30</td>
-                  <td>3</td>
-                  <td>–</td>
-                  <td>60 sec</td>
-                </tr>
-              </tbody>
-            </table>
-            <p><a href="sportplan-cardio-burner.html">View full Sportplan</a></p>
-          </details>
-        </section> -->
+
+        
+
       <!-- </details> -->
 
 
       <!-- SECTION: Create New Sportplan -->
-      <!-- <details class="section section-create">
-        <summary><h2>Create New Sportplan</h2></summary> -->
-        <!-- <section id="create-sportplan">
-          <form class="form-create-plan">
-            <div>
-              <label for="sportplan-name">Sportplan Name:</label>
-              <input type="text" id="sportplan-name" name="sportplan-name" placeholder="Name your plan" required>
-            </div>
-            <div>
-              <label for="exercise-search">Search Exercises:</label>
-              <input type="search" id="exercise-search" name="exercise-search" placeholder="Type to search...">
-            </div>
-            <div>
-              <label for="filter-category">Filter by Category:</label>
-              <select id="filter-category" name="filter-category">
-                <option value="">All Categories</option>
-                <option>Legs</option>
-                <option>Arms</option>
-                <option>Cardio</option>
-              </select>
-            </div>
-            <fieldset class="available-exercises">
-              <legend>Available Exercises</legend>
-              <table class="exercise-table responsive">
-                <thead>
-                  <tr>
-                    <th>Exercise</th>
-                    <th>Reps</th>
-                    <th>Sets</th>
-                    <th>Weight</th>
-                    <th>Duration</th>
-                    <th>Add</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Squats</td>
-                    <td><input type="number" name="squats-reps" placeholder="e.g. 10"></td>
-                    <td><input type="number" name="squats-sets" placeholder="e.g. 3"></td>
-                    <td><input type="number" name="squats-weight" placeholder="e.g. 50"></td>
-                    <td><input type="text" name="squats-duration" placeholder="e.g. 30 sec"></td>
-                    <td><button type="button" class="btn-add">Add</button></td>
-                  </tr>
-                  <tr>
-                    <td>Deadlifts</td>
-                    <td><input type="number" name="deadlifts-reps" placeholder="e.g. 8"></td>
-                    <td><input type="number" name="deadlifts-sets" placeholder="e.g. 3"></td>
-                    <td><input type="number" name="deadlifts-weight" placeholder="e.g. 50"></td>
-                    <td><input type="text" name="deadlifts-duration" placeholder="e.g. -"></td>
-                    <td><button type="button" class="btn-add">Add</button></td>
-                  </tr>
-                  <tr>
-                    <td>Push-Ups</td>
-                    <td><input type="number" name="pushups-reps" placeholder="e.g. 12"></td>
-                    <td><input type="number" name="pushups-sets" placeholder="e.g. 3"></td>
-                    <td><input type="number" name="pushups-weight" placeholder="Bodyweight"></td>
-                    <td><input type="text" name="pushups-duration" placeholder="e.g. -"></td>
-                    <td><button type="button" class="btn-add">Add</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </fieldset>
-            <fieldset id="selected-exercises" class="selected-exercises" style="display: none;">
-              <legend>Selected Exercises</legend>
-              <div class="exercise-tile-container">
-                <div class="exercise-tile" draggable="true">
-                  Push-Ups
-                  <button class="remove-btn js-remove" title="Remove">×</button>
-                </div>
-              </div>
-            </fieldset>
-            <button type="button" class="btn-create">Create Sportplan</button>
-          </form>
-        </section> -->
-      <!-- </details> -->
+       
+
 
 
 
@@ -277,9 +243,11 @@
     createApp({
       data() {
         return {
-          loggedIn: false,
+          loggedIn: true,
+          isSelected: true,
           inputUsername: '',
           inputPassword: '',
+          currentSportPlan: {}, //
           
 
 
@@ -291,16 +259,24 @@
             }
 
           ],
-
-
-          sportplan:[
+       
+          sportplans:[
             { 
-              id: null,
+              planID : null,
+              userID : 0,
               sportsplanName: "test",
               excercises: []
-            }
-          ]
+            },
+          ],
 
+          sportplanEntry: [
+            {
+              ID : 0,
+              repCount: 0,
+              setCount: 0,
+              weight: 0,
+              duration: 0,
+            }],
 
 
         }
@@ -352,6 +328,5 @@
 
 <!-- WORKPENDING: -->
 <!-- design rehaul -->
- <!--overhaul login register form -> Josh Cameau   -->
 <!-- make vue interactive -->
  <!-- PENPOT design -->

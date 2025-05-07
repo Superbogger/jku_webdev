@@ -1,0 +1,427 @@
+/* Base Dark Theme Styles for Sportsplanner */
+
+:root {
+  /* define variables used throughout the document  */
+  /* a variable definition is made via --somename: values; */
+    --bg-main: #1f2a38;  
+    --bg-section: #27323f;
+    --text-main: #dce3ec;
+    --text-muted: #9baec8;
+    --accent: #4ea8de;
+    --accent-hover: #68b3e6;
+    --border: #3a4757;
+    --input-bg: #1c2430;
+    --input-border: #4ea8de66;
+    --font-main: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+
+  
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #app{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  main{
+    flex: 1 1 auto;
+    display: flex;
+    flex-grow: 1;
+  }
+
+  .rightPane{
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center;
+    justify-content: center; */
+  }
+
+
+
+
+/* sportsplan list stylings */
+ul{
+  list-style-type:none;
+  
+}
+
+.sportplan-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+  /* LOGIN STYLING  */
+.form-login {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #555;
+  border-radius: 4px;
+  max-width: 700px;
+  margin: auto; /* auto center */
+}
+
+.loginInputGroup{
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 200px;
+  min-width: 150px;
+}
+
+.form-login label{
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.form-login input{
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background-color: transparent;
+  color: white;
+}
+
+.form-login button{
+
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  background-color: #ddd;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* button.btn-login{
+  background-color: greenyellow;
+} */
+/* ------------------------ */
+
+/* LEFT PANE */
+.leftPane{
+  background-color: #0e1b24;
+  margin: 8px;
+  border-right: var(--text-muted);
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.sportsplan{
+  display: flex;
+  flex-direction: row;
+}
+
+
+/* .leftPane h2{
+  border: 1px solid white;
+  padding: 4px 16px;
+}
+ */
+
+
+ .sportplan-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: var(--bg-section);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: var(--font-main);
+  color: var(--text-main);
+}
+
+.sportplan-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s ease;
+  color: var(--text-muted);
+}
+
+.sportplan-item:hover {
+  background-color: var(--bg-main);
+  color: var(--accent-hover);
+}
+
+.sportplan-item.selected {
+  background-color: var(--accent);
+  color: var(--bg-main);
+  font-weight: bold;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* CENTERPROMPT */
+
+
+.centerprompt{
+  background-color: #1c2430;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: auto;
+}
+
+.centerprompt button{
+  background-color: greenyellow;
+}
+
+
+
+
+
+
+
+  .nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  header, footer {
+    background-color: var(--bg-section);
+    padding: 1rem 2rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* descendant selector ( select h1 any depth nested ) */
+  header h1, footer p {
+    margin: 0;
+    color: var(--accent);
+  }
+  
+  .nav-list {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+  }
+  
+  .nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  /* 
+  .nav-link → selects any element with the class nav-link
+ :hover → activates when the mouse is over that element */
+ /* :something is a PSEUDO-CLASS */
+  .nav-link:hover {
+    color: var(--accent);
+  }
+  
+
+
+
+.inputEditPane{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  margin: auto;
+  
+}
+
+
+
+/* *{
+  border: 1px solid yellowgreen;
+} */
+
+
+
+/* excercise controls */
+.exercise-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--bg-section);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  max-width: 400px;
+  font-family: var(--font-main);
+  color: var(--text-main);
+}
+
+/* Inputs & select dropdown */
+.exercise-controls input[type="search"],
+.exercise-controls select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-main);
+  font-family: var(--font-main);
+}
+
+/* List container */
+.exercise-select-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  background: var(--bg-main);
+}
+
+/* List items */
+.exercise-item {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s ease;
+  color: var(--text-muted);
+}
+
+.exercise-item:hover {
+  background-color: var(--bg-section);
+  color: var(--accent-hover);
+}
+
+/* Selected item */
+.exercise-item.selected {
+  background-color: var(--accent);
+  color: var(--bg-main);
+  font-weight: bold;
+}
+
+
+/* INPUT EDIT */
+
+.inputEditPane section#create-sportplan {
+  background-color: var(--bg-section);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.2rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-main);
+  color: var(--text-main);
+}
+
+.form-create-plan input[type="text"],
+.form-create-plan input[type="number"],
+.form-create-plan input[type="search"],
+.form-create-plan textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  background-color: var(--input-bg);
+  color: var(--text-main);
+  font-family: var(--font-main);
+}
+
+.available-exercises legend,
+.selected-exercises legend {
+  font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.exercise-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.exercise-table th,
+.exercise-table td {
+  padding: 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.btn-add,
+.btn-create,
+.remove-btn {
+  background-color: var(--accent);
+  border: none;
+  color: var(--bg-main);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-main);
+}
+
+.btn-add:hover,
+.btn-create:hover,
+.remove-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+.selected-exercises {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--bg-main);
+  border: 1px dashed var(--accent);
+  border-radius: 6px;
+  color: var(--text-muted);
+}
+
+.exercise-tile-container {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.exercise-tile {
+  background-color: var(--bg-section);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--border);
+}

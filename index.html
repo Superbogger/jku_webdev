@@ -1,47 +1,13 @@
-<script>
-    const { createApp } = Vue;
-
-    createApp({
-      data() {
-        return {
-          nextCategoryId: 45,
-          nextExerciseId: 6,
-          categories: [
-            {
-              id: 42,
-              categoryName: "Legs",
-              description: "Exercise that trains the legs or lower body",
-              associatedExercises: [1, 2]
-            },
-            {
-              id: 43,
-              categoryName: "Arms",
-              description: "Upper body strength exercises",
-              associatedExercises: [3, 4]
-            },
-            {
-              id: 44,
-              categoryName: "Cardio",
-              description: "Exercises that boost heart rate and endurance",
-              associatedExercises: [5]
-            }
-          ],
-          exercises: [
-            { id: 1, name: 'Squats' },
-            { id: 2, name: 'Deadlifts' },
-            { id: 3, name: 'Push-Ups' },
-            { id: 4, name: 'Curls' },
-            { id: 5, name: 'Running' }
-          ]
-        };
-      },
-      methods: {
-        generateCategoryId() {
-          return this.nextCategoryId++;
-        },
-        generateExerciseId() {
-          return this.nextExerciseId++;
-        }
-      }
-    }).mount('#app');
-  </script>
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

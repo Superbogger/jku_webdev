@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <title>Sportsplanner User View</title>
+</head>
+<body>
+
+  <div id="app">
+    <header class="header">
+      <h1>Sportsplanner User View</h1>
+      <nav class="nav">
+        <button id="hamburger-icon">☰</button>
+        <ul class="nav-list">
+          <li><a href="#login" class="nav-link">Login</a></li>
+          <li><a href="#my-sportplans" class="nav-link">My Sportplans</a></li>
+          <li><a href="#create-sportplan" class="nav-link">Create New Sportplan</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+
+
+
+      <!-- SECTION: Login -->
+      <!-- <details class="section section-login"> -->
+        <!-- <summary><h2>Login</h2></summary> -->
+
+
+
+
+
+
+      <div v-if="loggedIn" class="leftPane">      
+      <div class="leftPane-header">
+        <h2>Sportplans</h2>
+        
+
+      </div>
+
+      <ul class="sportplan-list">
+
+        <li class="sportplan-item">
+          Leg Day Blast
+          <button class="delete-btn" title="Delete">🗑</button>
+        </li>
+
+        <li class="sportplan-item selected">
+          Cardio Burner
+          <button class="delete-btn" title="Delete">🗑</button>
+        </li>
+        
+        <li class="sportplan-item">
+          Push Workout
+          <button class="delete-btn" title="Delete">🗑</button>
+        </li>
+
+      </ul>
+
+
+
+
+
+
+
+
+
+        <!-- Alreade created Sportplans -->
+        <!-- Button to add new sportplan ?  -->
+
+
+      </div>
+
+
+        <div class="rightPane">
+
+            <!-- LOGIN -->
+            <form v-if="!loggedIn" class="form-login" @submit.prevent="authentificateLogin">
+              <div class="loginInputGroup">
+                <label for="username">Name:</label>
+                <input v-model="inputUsername" type="text" id="username" name="username" placeholder="Enter your name" required>
+              </div>
+              <div class="loginInputGroup">
+                <label for="password">Password:</label>
+                <input v-model="inputPassword" type="password" id="password" name="password" placeholder="Enter your password" required>
+              </div>
+              <button type="submit" class="btn-login">Login</button>
+              <button type="button" class="btn-register">Register</button>
+            </form>
+
+
+
+            <!-- LOGGED IN  NONE SELECTED  -->
+            <div v-if="!isSelected" class="centerprompt">
+              <input type="text"></input>
+              <button @click="createPlan">Create new</button>
+            </div>
+
+
+
+            <!-- LOGGED IN  SELECTED  OR CREATING-NEW -->
+            <div class="inputEditPane">
+            
+
+             <section id="create-sportplan">
+              <form class="form-create-plan">
+                <div>
+                  <label for="sportplan-name">Sportplan Name:</label>
+                  <input type="text" id="sportplan-name" name="sportplan-name" placeholder="Name your plan" required>
+                </div>
+
+                <fieldset class="available-exercises">
+                  <legend>Selected Excercises</legend>
+                  <table class="exercise-table responsive">
+                    <thead>
+                      <tr>
+                        <th>Exercise</th>
+                        <th>Reps</th>
+                        <th>Sets</th>
+                        <th>Weight</th>
+                        <th>Duration</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Squats</td>
+                        <td><input type="number" name="squats-reps" placeholder="e.g. 10"></td>
+                        <td><input type="number" name="squats-sets" placeholder="e.g. 3"></td>
+                        <td><input type="number" name="squats-weight" placeholder="e.g. 50"></td>
+                        <td><input type="text" name="squats-duration" placeholder="e.g. 30 sec"></td>
+                        <td><button type="button" class="btn-add">X</button></td>
+                      </tr>
+                      <tr>
+                        <td>Deadlifts</td>
+                        <td><input type="number" name="deadlifts-reps" placeholder="e.g. 8"></td>
+                        <td><input type="number" name="deadlifts-sets" placeholder="e.g. 3"></td>
+                        <td><input type="number" name="deadlifts-weight" placeholder="e.g. 50"></td>
+                        <td><input type="text" name="deadlifts-duration" placeholder="e.g. -"></td>
+                        <td><button type="button" class="btn-add">X</button></td>
+                      </tr>
+                      <tr>
+                        <td>Push-Ups</td>
+                        <td><input type="number" name="pushups-reps" placeholder="e.g. 12"></td>
+                        <td><input type="number" name="pushups-sets" placeholder="e.g. 3"></td>
+                        <td><input type="number" name="pushups-weight" placeholder="Bodyweight"></td>
+                        <td><input type="text" name="pushups-duration" placeholder="e.g. -"></td>
+                        <td><button type="button" class="btn-add">X</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </fieldset>
+
+                <fieldset id="selected-exercises" class="selected-exercises" style="display: none;">
+                  <legend>Selected Exercises</legend>
+                  <div class="exercise-tile-container">
+                    <div class="exercise-tile" draggable="true">
+                      Push-Ups
+                      <button class="remove-btn js-remove" title="Remove">×</button>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <button type="button" class="btn-create">Save</button>
+              </form>
+            </section>
+            
+            <section class="exercise-controls">   
+              <label for="exercise-search">Search Exercise:</label>
+              <input type="search" id="exercise-search" placeholder="Type to search...">
+            
+              <label for="category-filter">Filter by Category:</label>
+              <select id="category-filter">
+                <option value="">All Categories</option>
+                <option value="legs">Legs</option>
+                <option value="arms">Arms</option>
+                <option value="cardio">Cardio</option>
+              </select>
+            
+              <ul class="exercise-select-list">
+                <li class="exercise-item">Squats</li>
+                <li class="exercise-item">Deadlifts</li>
+                <li class="exercise-item">Push-Ups</li>
+                <li class="exercise-item">Burpees</li>
+                <li class="exercise-item">Lunges</li>
+              </ul>
+            </section>
+            
+            <!-- inputEditPane -->
+            </div> 
+        <!-- rightPane -->
+        </div>
+
+
+
+      <!-- SECTION: My Sportplans -->
+
+
+
+<!-- 
+      <details class="section section-sportplans">
+        <summary><h2>My Sportplans</h2></summary> -->
+
+        
+
+      <!-- </details> -->
+
+
+      <!-- SECTION: Create New Sportplan -->
+       
+
+
+
+
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2025 Sportsplanner User View</p>
+  </footer>
+
+
+  <script>
+
+  function createEmptySportsplan() 
+  {
+    return{
+      id: null,
+      sportsplanName: "",
+      excercises: []
+    };
+  }
+
+
+
+// VUE:
+    const { createApp } = Vue;
+  
+    createApp({
+      data() {
+        return {
+          loggedIn: true,
+          isSelected: true,
+          inputUsername: '',
+          inputPassword: '',
+          currentSportPlan: {}, //
+          
+
+
+          user:[
+            {
+              id: 0,
+              username: "admin",
+              password: "password"
+            }
+
+          ],
+       
+          sportplans:[
+            { 
+              planID : null,
+              userID : 0,
+              sportsplanName: "test",
+              excercises: []
+            },
+          ],
+
+          sportplanEntry: [
+            {
+              ID : 0,
+              repCount: 0,
+              setCount: 0,
+              weight: 0,
+              duration: 0,
+            }],
+
+
+        }
+      },
+      methods: {
+
+
+        // State: Not Logged in //////////////////////////////
+
+        // When Login Button Clicked
+        authentificateLogin()
+        {
+          // TODO: temporary admin login only 
+          if (this.inputUsername === 'admin' && this.inputPassword === 'password') 
+          {
+            this.loggedIn = true;
+          }
+          alert("it worked")
+        },
+
+
+
+
+        // When clicking Register
+        registerNewUser()
+        {
+
+        }
+
+
+
+        //////////////////////////////
+
+
+
+
+
+
+
+
+
+
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
+
+
+<!-- WORKPENDING: -->
+<!-- design rehaul -->
+<!-- make vue interactive -->
+ <!-- PENPOT design -->
